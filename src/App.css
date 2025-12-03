@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --brand-dark: #292929;
+  --brand-red: #e31e25;
+  --brand-blue: #372d74;
+  --brand-grey: #7a797b;
+}
+
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.icon{
+  padding: 8px 10px 0px;
+  padding-bottom: 6px;
+  width: 40px;
+  border: 1px solid var(--brand-blue) ;
+  color: var(--brand-blue);
+  border-radius: 50%;
+}
+
+.icon:hover{
+  border-color: var(--brand-red);
+  color: var(--brand-red);
+  transition: all 0.2s ease;
+}
+
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+
+/* Fade Up for Text */
+.hero-fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.swiper-slide-active .hero-fade-up {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Zoom In for Image */
+.hero-zoom {
+  opacity: 0;
+  transform: scale(0.7);
+  transition: all 0.8s ease-out;
+}
+
+.swiper-slide-active .hero-zoom {
+  opacity: 1;
+  transform: scale(1);
+}
+
+
+/* Custom Navigation Buttons */
+.custom-prev,
+.custom-next {
+  position: absolute;
+  top: 94%;
+  transform: translateY(-50%);
+  z-index: 50;
+  width: 48px;
+  height: 48px;
+  background: #e31e25; /* RED THEME */
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+/* Left Arrow */
+.custom-prev {
+  left: 20px;
+}
+
+/* Right Arrow */
+.custom-next {
+  right: 20px;
+}
+
+/* Hover Effect */
+.custom-prev:hover,
+.custom-next:hover {
+  background: #b8191f;  /* darker red */
+  transform: translateY(-50%) scale(1.08);
+}
+
+/* Icon Styling */
+.custom-prev i,
+.custom-next i {
+  font-size: 20px;
+  pointer-events: none; /* keeps click event on button */
+}
