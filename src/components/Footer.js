@@ -64,13 +64,13 @@ const Footer = () => {
           </div>
 
           {/* OUR PRODUCTS */}
-          <div>
-            <h4 className="font-bold text-lg mb-4 relative">
+          <div className="">
+            <h4 className="font-bold text-lg mb-4 relative ">
               OUR PRODUCTS
               <div className="h-[1px] bg-white w-28 mt-1 opacity-40"></div>
             </h4>
 
-            <ul className="space-y-2 text-gray-300 text-md  ">
+            <ul className="space-y-2 text-gray-300 text-md flex flex-col gap-0 ">
              <Link to="/" className="hover:text-red"> <li > <span className="text-sm mr-2">*</span>Ferrous Metal</li></Link>
               <Link to="/" className="hover:text-red"><li><span className="text-sm mr-2">*</span>Non-Ferrous Metal</li></Link>
              <Link to="/" className="hover:text-red"> <li><span className="text-sm mr-2">*</span>Industrial Flanges</li></Link>

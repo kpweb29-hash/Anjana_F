@@ -15,7 +15,7 @@ const Breadcrumb = () => {
         pageName.charAt(0).toUpperCase() + pageName.slice(1);
 
     return (
-        <section className="relative w-full py-20 md:py-32 text-white" data-aos="fade-up"
+        <section className="relative w-full py-28 md:py-36 text-white" data-aos="fade-up"
             data-aos-anchor-placement="top-bottom">
 
             {/* Background Image */}

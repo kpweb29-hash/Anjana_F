@@ -10,6 +10,11 @@
   --brand-grey: #7a797b;
 }
 
+html {
+  scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
 
 .App {
   text-align: center;

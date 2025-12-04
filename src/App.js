@@ -3,7 +3,6 @@ import './App.css';
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Products from "./pages/Products";
-import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -19,6 +18,8 @@ import AddProduct from './admin/products/AddProduct'
 import EditProduct from './admin/products/EditProduct'
 import GalleryList from './admin/gallery/GalleryList'
 import AddGallery from './admin/gallery/AddGallery'
+import Industries from './pages/Industries';
+import Updates from './pages/Updates';
 
 function App() {
   useEffect(() => {
@@ -32,7 +33,8 @@ function App() {
       <Route path='/' element={<Home />} />
       <Route path='/about' element={<About />} />
       <Route path='/products' element={<Products />} />
-      <Route path='/gallery' element={<Gallery />} />
+      <Route path='/industries' element={<Industries />} />
+      <Route path='/updates' element={<Updates />} />
       <Route path='/contact' element={<Contact />} />
 
       <Route path="login" element={<Login />} />

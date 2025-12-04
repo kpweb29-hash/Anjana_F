@@ -6,7 +6,7 @@ const Navbar = () => {
 
     return (
         <>
-            <div className="relative mb-16 md:mb-0" >
+            <div className="relative mb-14 md:mb-0" >
                 {/* ⭐ TOP INFO BAR */}
                 <div className=" w-full bg-blue text-white  text-sm py-2 pb-8">
                     <div className="max-w-7xl mx-auto px-6 flex justify-between items-center ">
@@ -67,31 +67,56 @@ const Navbar = () => {
                                     HOME
                                 </NavLink>
 
-                                <NavLink
-                                    to="/about"
-                                    className={({ isActive }) =>
+
+
+
+                                {/* ABOUT DROPDOWN */}
+                                <div className="relative group cursor-pointer">
+                                    <NavLink to="/about#about-us" className={({ isActive }) =>
                                         `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
                                         }`
-                                    }
-                                >
-                                    ABOUT US
-                                </NavLink>
+                                    } >ABOUT US</NavLink>
+
+                                    {/* Dropdown */}
+                                    <div className="absolute left-0 hidden group-hover:block bg-white shadow-lg p-4 rounded-lg w-56">
+
+                                        <Link to="/about#company-profile" className="block hover:text-red py-1">
+                                            Company Profile
+                                        </Link>
+
+                                        <Link to="/about#goals-values" className="block hover:text-red py-1">
+                                            Our Goals & Values
+                                        </Link>
+
+                                        <Link to="/about#management" className="block hover:text-red py-1">
+                                            Our Management
+                                        </Link>
+
+                                        <Link to="/about#quality-infra" className="block hover:text-red py-1">
+                                            Quality & Infrastructure
+                                        </Link>
+
+                                    </div>
+                                </div>
 
                                 {/* PRODUCTS DROPDOWN */}
                                 <div className="relative group cursor-pointer">
-                                    <span className="hover:text-red">PRODUCTS</span>
+                                    <NavLink to="/products" className={({ isActive }) =>
+                                        `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
+                                        }`
+                                    } >PRODUCTS</NavLink>
 
                                     {/* Dropdown */}
                                     <div className="absolute left-0 hidden group-hover:block bg-white shadow-lg p-4 rounded-lg w-44">
-                                        <Link to="/products" className="block hover:text-red py-1">All Products</Link>
-                                        <Link to="/category/tools" className="block hover:text-red py-1">Tools</Link>
-                                        <Link to="/category/machinery" className="block hover:text-red py-1">Machinery</Link>
-                                        <Link to="/category/safety" className="block hover:text-red py-1">Safety</Link>
+                                        <NavLink to="/products" className="block hover:text-red py-1">All Products</NavLink>
+                                        <NavLink to="/category/tools" className="block hover:text-red py-1">Tools</NavLink>
+                                        <NavLink to="/category/machinery" className="block hover:text-red py-1">Machinery</NavLink>
+                                        <NavLink to="/category/safety" className="block hover:text-red py-1">Safety</NavLink>
                                     </div>
                                 </div>
 
                                 <NavLink
-                                    to="/industry"
+                                    to="/industries"
                                     className={({ isActive }) =>
                                         `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
                                         }`
@@ -138,13 +163,89 @@ const Navbar = () => {
 
             {/* ⭐ MOBILE MENU */}
             {open && (
-                <div className="md:hidden bg-white shadow-lg p-6 space-y-6 text-lg font-vollkorn font-bold  text-blue">
-                    <NavLink to="/" onClick={() => setOpen(false)} className="block hover:text-red"><span className="text-sm mr-2">*</span>HOME</NavLink>
-                    <NavLink to="/about" onClick={() => setOpen(false)} className="block hover:text-red"><span className="text-sm mr-2">*</span>ABOUT US</NavLink>
-                    <NavLink to="/products" onClick={() => setOpen(false)} className="block hover:text-red"><span className="text-sm mr-2">*</span>PRODUCTS</NavLink>
-                    <NavLink to="/industry" onClick={() => setOpen(false)} className="block hover:text-red"><span className="text-sm mr-2">*</span>INDUSTRIES</NavLink>
-                    <NavLink to="/updates" onClick={() => setOpen(false)} className="block hover:text-red"><span className="text-sm mr-2">*</span>UPDATES</NavLink>
-                    <NavLink to="/contact" onClick={() => setOpen(false)} className="block hover:text-red"><span className="text-sm mr-2">*</span>CONTACT US</NavLink>
+                <div className="md:hidden bg-white shadow-lg p-6 space-y-6 text-lg font-vollkorn font-bold  text-blue flex flex-col ">
+                    <NavLink to="/" onClick={() => setOpen(false)}   className={({ isActive }) =>
+                                        `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
+                                        }`
+                                    }><span className="text-sm mr-2">*</span>HOME</NavLink>
+
+                    <div className="relative group cursor-pointer">
+                        <NavLink to="/about#about-us" onClick={() => setOpen(false)} className={({ isActive }) =>
+                            `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
+                            }`
+                        } ><span className="text-sm mr-2">*</span>ABOUT US</NavLink>
+
+                        {/* Dropdown */}
+                        <div className="absolute z-20 left-0 hidden group-hover:block bg-white shadow-lg p-4 rounded-lg w-full">
+
+                            <Link to="/about#company-profile" onClick={() => setOpen(false)} className="block hover:text-red py-1">
+                                <span className="text-sm mr-2">*</span> Company Profile
+                            </Link>
+
+                            <Link to="/about#goals-values" onClick={() => setOpen(false)} className="block hover:text-red py-1">
+                                <span className="text-sm mr-2">*</span> Our Goals & Values
+                            </Link>
+
+                            <Link to="/about#management" onClick={() => setOpen(false)} className="block hover:text-red py-1">
+                                <span className="text-sm mr-2">*</span> Our Management
+                            </Link>
+
+                            <Link to="/about#quality-infra" onClick={() => setOpen(false)} className="block hover:text-red py-1">
+                                <span className="text-sm mr-2">*</span> Quality & Infrastructure
+                            </Link>
+
+                        </div>
+                    </div>
+
+
+
+                    {/* PRODUCTS DROPDOWN */}
+                    <div className="relative group cursor-pointer" >
+                        <NavLink to="/products" onClick={() => setOpen(false)} className={({ isActive }) =>
+                            `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
+                            }`
+                        } ><span className="text-sm mr-2">*</span>PRODUCTS</NavLink>
+
+                        {/* Dropdown */}
+                        <div className="absolute z-20 left-0 hidden group-hover:block bg-white shadow-lg p-4 rounded-lg w-full">
+
+                            <Link to="/about#company-profile" onClick={() => setOpen(false)} className="block hover:text-red py-1">
+                                <span className="text-sm mr-2">*</span>All Products
+                            </Link>
+
+                            <Link to="/about#goals-values" onClick={() => setOpen(false)} className="block hover:text-red py-1">
+                                <span className="text-sm mr-2">*</span> Tools
+                            </Link>
+
+                            <Link to="/about#management" onClick={() => setOpen(false)} className="block hover:text-red py-1">
+                                <span className="text-sm mr-2">*</span>Machinery
+                            </Link>
+
+                            <Link to="/about#quality-infra" onClick={() => setOpen(false)} className="block hover:text-red py-1">
+                                <span className="text-sm mr-2">*</span> Safety
+                            </Link>
+
+                        </div>
+                    </div>
+
+
+
+
+                    <NavLink to="/industries" onClick={() => setOpen(false)}   className={({ isActive }) =>
+                                        `hover:text-red   ${isActive ? "text-red border-red" : "border-white"
+                                        }`
+                                    }><span className="text-sm mr-2">*</span>INDUSTRIES</NavLink>
+
+                    <NavLink to="/updates" onClick={() => setOpen(false)}   className={({ isActive }) =>
+                                        `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
+                                        }`
+                                    }><span className="text-sm mr-2">*</span>UPDATES</NavLink>
+
+                    <NavLink to="/contact" onClick={() => setOpen(false)}   className={({ isActive }) =>
+                                        `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
+                                        }`
+                                    }><span className="text-sm mr-2">*</span>CONTACT US</NavLink>
+
 
                     <hr />
 
