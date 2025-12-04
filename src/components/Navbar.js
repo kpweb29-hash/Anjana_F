@@ -81,25 +81,25 @@ const Navbar = () => {
                                     <div className="absolute left-0 hidden group-hover:block bg-white shadow-lg p-4 rounded-lg w-56">
 
                                         <Link to="/about#company-profile" className="block hover:text-red py-1">
-                                            Company Profile
+                                           • Company Profile
                                         </Link>
 
                                         <Link to="/about#goals-values" className="block hover:text-red py-1">
-                                            Our Goals & Values
+                                           • Our Goals & Values
                                         </Link>
 
                                         <Link to="/about#management" className="block hover:text-red py-1">
-                                            Our Management
+                                            • Our Management
                                         </Link>
 
                                         <Link to="/about#quality-infra" className="block hover:text-red py-1">
-                                            Quality & Infrastructure
+                                            • Quality & Infrastructure
                                         </Link>
 
                                     </div>
                                 </div>
 
-                                {/* PRODUCTS DROPDOWN */}
+                                {/* Products DROPDOWN */}
                                 <div className="relative group cursor-pointer">
                                     <NavLink to="/products" className={({ isActive }) =>
                                         `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
@@ -107,11 +107,40 @@ const Navbar = () => {
                                     } >PRODUCTS</NavLink>
 
                                     {/* Dropdown */}
-                                    <div className="absolute left-0 hidden group-hover:block bg-white shadow-lg p-4 rounded-lg w-44">
-                                        <NavLink to="/products" className="block hover:text-red py-1">All Products</NavLink>
-                                        <NavLink to="/category/tools" className="block hover:text-red py-1">Tools</NavLink>
-                                        <NavLink to="/category/machinery" className="block hover:text-red py-1">Machinery</NavLink>
-                                        <NavLink to="/category/safety" className="block hover:text-red py-1">Safety</NavLink>
+                                    <div className="absolute left-0 hidden group-hover:block bg-white shadow-lg p-4 rounded-lg w-56">
+
+                                        <Link to="/products/ferrous" className="block py-1 hover:text-red">
+                                            • Ferrous Metal
+                                        </Link>
+
+                                        <Link to="/products/nonFerrous" className="block py-1 hover:text-red">
+                                            • Non-Ferrous Metal
+                                        </Link>
+
+                                        <Link to="/products/industrialFlanges" className="block py-1 hover:text-red">
+                                            • Industrial Flanges
+                                        </Link>
+
+                                        <Link to="/products/industrialValves" className="block py-1 hover:text-red">
+                                            • Industrial Valves
+                                        </Link>
+
+                                        <Link to="/products/industrialFittings" className="block py-1 hover:text-red">
+                                            • Industrial Fittings
+                                        </Link>
+
+                                        <Link to="/products/dairyFittings" className="block py-1 hover:text-red">
+                                            • Dairy Fittings
+                                        </Link>
+
+                                        <Link to="/products/fasteners" className="block py-1 hover:text-red">
+                                            • Fasteners
+                                        </Link>
+
+                                        <Link to="/products/perforatedSheet" className="block py-1 hover:text-red">
+                                            • Perforated Sheet
+                                        </Link>
+
                                     </div>
                                 </div>
 
@@ -164,10 +193,10 @@ const Navbar = () => {
             {/* ⭐ MOBILE MENU */}
             {open && (
                 <div className="md:hidden bg-white shadow-lg p-6 space-y-6 text-lg font-vollkorn font-bold  text-blue flex flex-col ">
-                    <NavLink to="/" onClick={() => setOpen(false)}   className={({ isActive }) =>
-                                        `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
-                                        }`
-                                    }><span className="text-sm mr-2">*</span>HOME</NavLink>
+                    <NavLink to="/" onClick={() => setOpen(false)} className={({ isActive }) =>
+                        `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
+                        }`
+                    }><span className="text-sm mr-2">*</span>HOME</NavLink>
 
                     <div className="relative group cursor-pointer">
                         <NavLink to="/about#about-us" onClick={() => setOpen(false)} className={({ isActive }) =>
@@ -197,10 +226,7 @@ const Navbar = () => {
                         </div>
                     </div>
 
-
-
-                    {/* PRODUCTS DROPDOWN */}
-                    <div className="relative group cursor-pointer" >
+                    <div className="relative group cursor-pointer">
                         <NavLink to="/products" onClick={() => setOpen(false)} className={({ isActive }) =>
                             `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
                             }`
@@ -210,19 +236,35 @@ const Navbar = () => {
                         <div className="absolute z-20 left-0 hidden group-hover:block bg-white shadow-lg p-4 rounded-lg w-full">
 
                             <Link to="/about#company-profile" onClick={() => setOpen(false)} className="block hover:text-red py-1">
-                                <span className="text-sm mr-2">*</span>All Products
+                                <span className="text-sm mr-2">*</span> Ferrous Metal
+                            </Link>
+
+                            <Link to="/about#company-profile" onClick={() => setOpen(false)} className="block hover:text-red py-1">
+                                <span className="text-sm mr-2">*</span> Non-Ferrous Metal
                             </Link>
 
                             <Link to="/about#goals-values" onClick={() => setOpen(false)} className="block hover:text-red py-1">
-                                <span className="text-sm mr-2">*</span> Tools
+                                <span className="text-sm mr-2">*</span> Industrial Flanges
                             </Link>
 
                             <Link to="/about#management" onClick={() => setOpen(false)} className="block hover:text-red py-1">
-                                <span className="text-sm mr-2">*</span>Machinery
+                                <span className="text-sm mr-2">*</span> Industrial Valves
                             </Link>
 
                             <Link to="/about#quality-infra" onClick={() => setOpen(false)} className="block hover:text-red py-1">
-                                <span className="text-sm mr-2">*</span> Safety
+                                <span className="text-sm mr-2">*</span> Industrial Fittings
+                            </Link>
+
+                            <Link to="/about#quality-infra" onClick={() => setOpen(false)} className="block hover:text-red py-1">
+                                <span className="text-sm mr-2">*</span> Dairy Fittings
+                            </Link>
+
+                            <Link to="/about#quality-infra" onClick={() => setOpen(false)} className="block hover:text-red py-1">
+                                <span className="text-sm mr-2">*</span> Fasteners
+                            </Link>
+
+                            <Link to="/about#quality-infra" onClick={() => setOpen(false)} className="block hover:text-red py-1">
+                                <span className="text-sm mr-2">*</span> Perforated Sheet
                             </Link>
 
                         </div>
@@ -231,20 +273,21 @@ const Navbar = () => {
 
 
 
-                    <NavLink to="/industries" onClick={() => setOpen(false)}   className={({ isActive }) =>
-                                        `hover:text-red   ${isActive ? "text-red border-red" : "border-white"
-                                        }`
-                                    }><span className="text-sm mr-2">*</span>INDUSTRIES</NavLink>
 
-                    <NavLink to="/updates" onClick={() => setOpen(false)}   className={({ isActive }) =>
-                                        `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
-                                        }`
-                                    }><span className="text-sm mr-2">*</span>UPDATES</NavLink>
+                    <NavLink to="/industries" onClick={() => setOpen(false)} className={({ isActive }) =>
+                        `hover:text-red   ${isActive ? "text-red border-red" : "border-white"
+                        }`
+                    }><span className="text-sm mr-2">*</span>INDUSTRIES</NavLink>
 
-                    <NavLink to="/contact" onClick={() => setOpen(false)}   className={({ isActive }) =>
-                                        `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
-                                        }`
-                                    }><span className="text-sm mr-2">*</span>CONTACT US</NavLink>
+                    <NavLink to="/updates" onClick={() => setOpen(false)} className={({ isActive }) =>
+                        `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
+                        }`
+                    }><span className="text-sm mr-2">*</span>UPDATES</NavLink>
+
+                    <NavLink to="/contact" onClick={() => setOpen(false)} className={({ isActive }) =>
+                        `hover:text-red  ${isActive ? "text-red border-red" : "border-white"
+                        }`
+                    }><span className="text-sm mr-2">*</span>CONTACT US</NavLink>
 
 
                     <hr />

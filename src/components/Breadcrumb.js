@@ -37,7 +37,7 @@ const Breadcrumb = () => {
                 <h1 className="text-4xl md:text-5xl font-vollkorn font-bold drop-shadow-lg" data-aos="fade-right"
      data-aos-offset="300"
      data-aos-easing="ease-in-sine">
-                    {formattedName}
+                    {formattedName}  
                 </h1>
 
                 {/* BREADCRUMB LINE */}
@@ -54,6 +54,7 @@ const Breadcrumb = () => {
                     <span className=" font-semibold">
                         {formattedName}
                     </span>
+
 
                 </div>
 

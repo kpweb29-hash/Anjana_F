@@ -20,6 +20,9 @@ import GalleryList from './admin/gallery/GalleryList'
 import AddGallery from './admin/gallery/AddGallery'
 import Industries from './pages/Industries';
 import Updates from './pages/Updates';
+import SubCategories from './components/SubCategories';
+import ProductDetail from './components/ProductDetail';
+import AllProductList from './components/AllProductList';
 
 function App() {
   useEffect(() => {
@@ -36,6 +39,10 @@ function App() {
       <Route path='/industries' element={<Industries />} />
       <Route path='/updates' element={<Updates />} />
       <Route path='/contact' element={<Contact />} />
+
+<Route path="/products/:category" element={<SubCategories />} />
+<Route path="/products/:category/:subcat" element={<AllProductList />} />
+<Route path="/products/:category/:subcat/:productId" element={<ProductDetail />} />
 
       <Route path="login" element={<Login />} />
           <Route path="/admin" element={<AdminLayout />}>

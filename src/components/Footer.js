@@ -57,8 +57,8 @@ const Footer = () => {
               <li><Link to="/" className="hover:text-red"><span className="text-sm mr-2">*</span>Home</Link></li>
               <li><Link to="/about" className="hover:text-red"><span className="text-sm mr-2">*</span>About</Link></li>
               <li><Link to="/products" className="hover:text-red"><span className="text-sm mr-2">*</span>Products</Link></li>
-              <li><Link to="/quality" className="hover:text-red"><span className="text-sm mr-2">*</span>Industries</Link></li>
-              <li><Link to="/technical" className="hover:text-red"><span className="text-sm mr-2">*</span>Technical</Link></li>
+              <li><Link to="/industries" className="hover:text-red"><span className="text-sm mr-2">*</span>Industries</Link></li>
+              <li><Link to="/updates" className="hover:text-red"><span className="text-sm mr-2">*</span>Update</Link></li>
               <li><Link to="/contact" className="hover:text-red"><span className="text-sm mr-2">*</span>Contact Us</Link></li>
             </ul>
           </div>
@@ -75,8 +75,8 @@ const Footer = () => {
               <Link to="/" className="hover:text-red"><li><span className="text-sm mr-2">*</span>Non-Ferrous Metal</li></Link>
              <Link to="/" className="hover:text-red"> <li><span className="text-sm mr-2">*</span>Industrial Flanges</li></Link>
              <Link to="/" className="hover:text-red"> <li><span className="text-sm mr-2">*</span>Industrial Valves</li></Link>
-              <Link to="/" className="hover:text-red"><li><span className="text-sm mr-2">*</span>Dairy Fittings</li></Link>
              <Link to="/" className="hover:text-red"> <li><span className="text-sm mr-2">*</span>Industrial Fittings</li></Link>
+              <Link to="/" className="hover:text-red"><li><span className="text-sm mr-2">*</span>Dairy Fittings</li></Link>
              <Link to="/" className="hover:text-red"> <li><span className="text-sm mr-2">*</span>Fasteners</li></Link>
              <Link to="/" className="hover:text-red"> <li><span className="text-sm mr-2">*</span>Perforated Sheet</li></Link>
             </ul>

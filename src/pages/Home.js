@@ -1,20 +1,16 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade, Navigation } from "swiper/modules";
-
-import FeaturedProducts from "../components/FeaturedProducts";
 import AboutSection from "../components/AboutSection";
 import WhyChooseUs from "../components/WhyChooseUs ";
 import Testimonials from "../components/Testimonials";
-import GalleryPreview from "../components/GalleryPreview";
 import ContactCTA from "../components/ContactCTA";
 import VisionMissionValues from "../components/VisionMissionValues ";
-import CategoriesFullSection from "../components/CategoriesFullSection ";
+import CategoriesFullSection from "../components/CategoriesFullSection";
 
 const Home = () => {
 
