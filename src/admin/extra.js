@@ -5,7 +5,7 @@ export default function AdminSidebar({ sidebarOpen, setSidebarOpen }) {
 
   const linkClass = ({ isActive }) =>
     `flex items-center px-3 py-2 rounded-md transition font-medium
-     ${isActive ? "md:bg-grey bg-blue text-white" : "md:text-white text-blue hover:bg-red/30 hover:text-brandOrange"}`;
+     ${isActive ? "bg-blue text-white" : "text-blue hover:bg-red/30 hover:text-brandOrange"}`;
 
 
   return (
@@ -21,13 +21,13 @@ export default function AdminSidebar({ sidebarOpen, setSidebarOpen }) {
       {/* SIDEBAR */}
       <aside
         className={`
-          md:bg-blue bg-white/100 text-white md:w-64 w-full p-6 md:pt-24 
-          fixed md:static top-[195px] left-0 h-100 z-20
+          md:bg-grey/70 bg-white/100 text-white md:w-64 w-full p-6 md:pt-24 
+          fixed md:static top-[178px] left-0 h-100 z-20
           transform transition-transform duration-300
           ${sidebarOpen ? "translate-y-[1px]" : "-translate-y-[500px] md:translate-y-0"}
         `}
       >
-        <h2 className="text-2xl font-brand font-bold hidden md:block text-white mb-2 ml-1">
+        <h2 className="text-2xl font-brand font-bold hidden md:block text-blue mb-2 ml-1">
           Admin Panel
         </h2>
 
