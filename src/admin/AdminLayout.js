@@ -6,20 +6,20 @@ export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
    // 🔥 Disable scroll when sidebar is open
-  useEffect(() => {
+   useEffect(() => {
     if (sidebarOpen) {
-      document.body.style.overflow = "hidden"; // Stop scrolling
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "auto";   // Enable scrolling
+      document.body.style.overflow = "auto";
+      document.documentElement.style.overflow = "auto";
     }
-
-    return () => {
-      document.body.style.overflow = "auto";   // Cleanup
-    };
   }, [sidebarOpen]);
 
   return (
-    <div className="flex">
+    // <div className="flex">
+    <div className={`flex ${sidebarOpen ? "overflow-hidden" : ""}`}>
+
 
       {/* SIDEBAR */}
       <AdminSidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
@@ -28,7 +28,7 @@ export default function AdminLayout() {
       <div className="flex-1">
 
         {/* Mobile Top Bar */}
-      <div className="md:hidden fixed top-26 left-0 w-full flex justify-between items-center p-4 shadow bg-white text-brandLight border-b-2 border-t-2 border-blue z-[9999]">
+      <div className="md:hidden mt-[5px] w-full flex justify-between items-center p-4 shadow bg-white text-brandLight border-b-2 border-t-2 border-blue z-20">
 
           <h1 className="font-brand text-blue font-bold text-2xl ">Admin Panel</h1>
 
@@ -41,7 +41,7 @@ export default function AdminLayout() {
             ></i>
           </button>
         </div>
-            <div className="mt-16 md:mt-2">
+            <div className=" md:mt-2">
 
         <Outlet />
             </div>

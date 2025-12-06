@@ -25,7 +25,7 @@ export default function Login() {
   };
 
   return (
-    <div className="py-10 flex items-center justify-center bg-brandLight px-4">
+    <div className="py-10 md:mt-20 flex items-center justify-center bg-brandLight px-4">
 
       <div className="bg-white shadow-xl rounded-xl p-8 w-full max-w-md border border-blue">
         

@@ -18,13 +18,13 @@ export default function ProductDetail() {
 
       <img src={product.image} className="w-full h-80 object-cover rounded-lg" data-aos="zoom-in"  />
 
-      <p className="mt-6 text-lg" data-aos="fade-up"  >{product.description}</p>
+      <p className="mt-6 text-lg mb-8" data-aos="fade-up"  >{product.description}</p>
 
-      <ul className="mt-4 mb-8 list-disc pl-6" data-aos="fade-up"  data-aos-delay="100">
+      {/* <ul className="mt-4 mb-8 list-disc pl-6" data-aos="fade-up"  data-aos-delay="100">
         {product.specs.map((s, i) => (
           <li key={i}>{s}</li>
         ))}
-      </ul>
+      </ul> */}
 
       <div className="flex flex-wrap">
      {/* BUTTON */}
@@ -33,10 +33,10 @@ export default function ProductDetail() {
           Get Quote
         </Link>
 
-        <Link to="/about#company-profile" className=" mb-4 px-8 py-3 bg-blue text-white rounded-md font-semibold 
+        {/* <Link to="/about#company-profile" className=" mb-4 px-8 py-3 bg-blue text-white rounded-md font-semibold 
         hover:bg-red transition" data-aos="fade-up" data-aos-delay="300">
           Download Brochure
-        </Link>
+        </Link> */}
             </div>
             </div>
   </>);

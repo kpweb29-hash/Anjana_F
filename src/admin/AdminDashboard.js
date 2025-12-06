@@ -6,7 +6,7 @@ export default function AdminDashboard() {
     <div className="p-6">
 
       {/* PAGE TITLE */}
-      <h1 className="text-3xl font-vollkorn text-blue font-bold text-brandBlue mb-8">
+      <h1 className="text-3xl font-vollkorn text-blue font-bold text-brandBlue md:mt-20 mb-8">
         Admin Dashboard
       </h1>
 

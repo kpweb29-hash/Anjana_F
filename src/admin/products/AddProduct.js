@@ -2,24 +2,61 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function AddProduct() {
-  const [previewImage, setPreviewImage] = useState(null);
-
   const navigate = useNavigate();
 
+  // MAIN CATEGORY → SUBCATEGORY
+  const categories = {
+    "Ferrous Metal": ["SS Pipes", "MS Pipes", "GI Pipes", "SS Rods"],
+    "Non-Ferrous Metal": ["Brass Rods", "Copper Sheets", "Aluminium Flats"],
+    "Industrial Flanges": ["SS Flanges", "MS Flanges", "Blind Flanges"],
+    "Industrial Valves": ["Ball Valves", "Gate Valves", "Globe Valves"],
+    "Industrial Fittings": ["Elbow Fittings", "Tee Fittings", "Reducer Fittings"],
+    "Dairy Fittings": ["Dairy Bend", "Dairy Tee", "Dairy Clamp"],
+    "Fasteners": ["Nut Bolt", "Washer", "Screws"],
+    "Perforated Sheet": ["SS Perforated", "MS Perforated"],
+  };
+
+  // FORM STATE
+  const [product, setProduct] = useState({
+    name: "",
+    category: "Ferrous Metal",
+    subcategory: "SS Pipes",
+    description: "",
+    image: "",
+  });
+
+  const [previewImage, setPreviewImage] = useState(null);
+
+  // Handle image preview
   const handleImagePreview = (e) => {
     const file = e.target.files[0];
-    if (file) setPreviewImage(URL.createObjectURL(file));
+    if (file) {
+      setPreviewImage(URL.createObjectURL(file));
+      setProduct({ ...product, image: file });
+    }
+  };
+
+  // Category change updates subcategory
+  const handleCategoryChange = (e) => {
+    const selected = e.target.value;
+    setProduct({
+      ...product,
+      category: selected,
+      subcategory: categories[selected][0],
+    });
   };
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between">
+    <div className="p-6 md:pt-24">
 
-        {/* PAGE TITLE */}
-        <h1 className="text-2xl font-brand font-bold text-blue mb-6">
+      {/* HEADER */}
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-brand font-bold text-blue">
           Add New Product
         </h1>
-        <Link to="/admin/productlist" className="text-2xl text-red" ><i class="fa-regular fa-circle-left"></i></Link>
+        <Link to="/admin/productlist" className="text-2xl text-red">
+          <i className="fa-regular fa-circle-left"></i>
+        </Link>
       </div>
 
       {/* FORM CARD */}
@@ -29,26 +66,58 @@ export default function AddProduct() {
 
           {/* PRODUCT NAME */}
           <div className="flex flex-col">
-            <label className="font-medium text-blue mb-1">
-              Product Name
-            </label>
+            <label className="font-medium text-blue mb-1">Product Name</label>
             <input
               type="text"
+              value={product.name}
               placeholder="Enter product name"
+              onChange={(e) =>
+                setProduct({ ...product, name: e.target.value })
+              }
               className="border border-blue rounded-lg px-4 py-2 focus:outline-brandBlue"
             />
           </div>
 
-         
+          {/* CATEGORY */}
+          <div className="flex flex-col">
+            <label className="font-medium text-blue mb-1">Category</label>
+            <select
+              value={product.category}
+              onChange={handleCategoryChange}
+              className="border border-blue rounded-lg px-4 py-2"
+            >
+              {Object.keys(categories).map((cat) => (
+                <option key={cat}>{cat}</option>
+              ))}
+            </select>
+          </div>
 
-          {/* LONG DESCRIPTION */}
+          {/* SUBCATEGORY */}
+          <div className="flex flex-col">
+            <label className="font-medium text-blue mb-1">Subcategory</label>
+            <select
+              value={product.subcategory}
+              onChange={(e) =>
+                setProduct({ ...product, subcategory: e.target.value })
+              }
+              className="border border-blue rounded-lg px-4 py-2"
+            >
+              {categories[product.category].map((sub) => (
+                <option key={sub}>{sub}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* DESCRIPTION */}
           <div className="flex flex-col md:col-span-2">
-            <label className="font-medium text-blue mb-1">
-              Description
-            </label>
+            <label className="font-medium text-blue mb-1">Description</label>
             <textarea
               rows="5"
+              value={product.description}
               placeholder="Write detailed product description"
+              onChange={(e) =>
+                setProduct({ ...product, description: e.target.value })
+              }
               className="border border-blue rounded-lg px-4 py-2 focus:outline-brandBlue"
             ></textarea>
           </div>
@@ -76,8 +145,11 @@ export default function AddProduct() {
         </form>
 
         {/* SUBMIT BUTTON */}
-        <div className="mt-6">
-          <button className="bg-blue hover:bg-red text-white px-6 py-3 rounded-lg font-medium transition"  onClick={() => navigate("/admin/productlist")}>
+        <div className="mt-6 flex justify-end">
+          <button
+            className="bg-blue hover:bg-red text-white px-6 py-3 rounded-lg font-medium transition"
+            onClick={() => navigate("/admin/productlist")}
+          >
             Add Product
           </button>
         </div>

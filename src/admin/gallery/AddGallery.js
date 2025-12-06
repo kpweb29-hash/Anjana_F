@@ -10,7 +10,7 @@ export default function AddGallery() {
   };
 
   return (
-      <div className="p-6">
+      <div className="p-6 md:pt-24">
           
 
          <div className="flex justify-between">

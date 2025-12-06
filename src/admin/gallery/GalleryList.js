@@ -31,7 +31,7 @@ export default function GalleryList() {
   ]);
 
   return (
-      <div className="p-6">
+      <div className="p-6 md:pt-24">
 
         {/* PAGE TITLE */}
         <div className="flex justify-between items-center mb-6">
