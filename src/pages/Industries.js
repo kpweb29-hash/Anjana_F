@@ -23,7 +23,7 @@ const Industries = () => {
 
                 {/* HEADING */}
                 <h2 className="text-2xl md:text-3xl font-bold text-blue leading-snug max-w-3xl mx-auto text-center">
-                    Regal Metal Industries Has Served Its Products <br />
+                    Anjana Enterprise Has Served Its Products <br />
                     In The Following Industry
                 </h2>
 

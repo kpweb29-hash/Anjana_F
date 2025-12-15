@@ -189,7 +189,7 @@ const About = () => {
         <div className="flex items-center justify-center gap-4 mb-4">
           <span className="w-16 h-[2px] bg-blue"></span>
           <p className="text-gray-600 font-semibold uppercase text-sm tracking-wide" data-aos="fade-down">
-            Learn About Regal Metal Industries
+            Learn About Anjana Enterprise
           </p>
           <span className="w-16 h-[2px] bg-blue"></span>
         </div>
@@ -199,7 +199,7 @@ const About = () => {
           className="text-3xl md:text-4xl font-vollkorn font-bold text-blue leading-snug"
           data-aos="fade-up"
         >
-          At Regal Metal Industries, We Take Immense Pride In  
+          At Anjana Enterprise, We Take Immense Pride In  
           <br />
           Our Commitment To Excellence In Metal Fabrication  
           <br />
@@ -213,7 +213,7 @@ const About = () => {
           data-aos-delay="200"
         >
           With a rich history and a forward-looking vision, we have established ourselves as a trusted
-          leader in the metal industry. Regal Metal Industries is known for its team of skilled craftsmen,
+          leader in the metal industry. Anjana Enterprise is known for its team of skilled craftsmen,
           engineers, and professionals who bring an impressive level of expertise to every project. We
           specialize in metal fabrication services and are committed to delivering solutions that exceed
           expectations in terms of quality and performance.
@@ -287,7 +287,7 @@ const About = () => {
             </h2>
 
             <p className="text-gray-200 my-4 mb-6 leading-relaxed">
-              At Regal Metal Industries, we’re not just a supplier; we’re your trusted
+              At Anjana Enterprise, we’re not just a supplier; we’re your trusted
               partner in metal excellence. Contact us today to start a conversation
               about how we can serve you better.
             </p>
@@ -326,7 +326,7 @@ const About = () => {
         <div data-aos="fade-left">
           {/* Small Title */}
           <p className="text-gray-600 uppercase text-sm font-semibold tracking-wide border-l-4 border-red pl-3">
-            Why Choose Regal Metal Industries
+            Why Choose Anjana Enterprise
           </p>
 
           {/* Main Title */}
@@ -589,7 +589,7 @@ const About = () => {
         <div className="text-center mb-12" >
           <p className="text-sm md:tracking-wide" data-aos="fade-up" >
             ——— <span className="font-semibold text-gray-200">
-              WHY CHOOSE REGAL METAL INDUSTRIES
+              WHY CHOOSE Anjana Enterprise
             </span>{" "}
             ———
           </p>

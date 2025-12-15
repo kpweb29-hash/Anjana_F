@@ -42,9 +42,7 @@ const Updates = () => {
             for achieving strength, precision, and long-term performance in
             manufacturing and engineering applications.
           </p>
-          <button className="mt-4 text-red font-semibold hover:underline text-sm">
-            Read More →
-          </button>
+          
         </div>
       </div>
 
@@ -68,9 +66,7 @@ const Updates = () => {
             innovations that are transforming metal sourcing, fabrication, and
             industrial production across India.
           </p>
-          <button className="mt-4 text-red font-semibold hover:underline text-sm">
-            Read More →
-          </button>
+       
         </div>
       </div>
 
@@ -94,9 +90,7 @@ const Updates = () => {
             enable high-performance solutions in electrical, automotive, and
             heavy-machinery industries.
           </p>
-          <button className="mt-4 text-red font-semibold hover:underline text-sm">
-            Read More →
-          </button>
+          
         </div>
       </div>
 

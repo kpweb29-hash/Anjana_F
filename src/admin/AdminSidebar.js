@@ -40,8 +40,8 @@ export default function AdminSidebar({ sidebarOpen, setSidebarOpen }) {
             <i className="fa-solid fa-box mr-2"></i> Products
           </NavLink>
 
-          <NavLink to="/admin/gallerylist" className={linkClass}>
-            <i className="fa-solid fa-image mr-2"></i> Gallery
+          <NavLink to="/admin/BlogList" className={linkClass}>
+            <i className="fa-solid fa-image mr-2"></i> Updates
           </NavLink>
 
           <NavLink to="/login" className={linkClass}>

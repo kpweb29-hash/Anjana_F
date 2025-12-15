@@ -27,13 +27,13 @@ export default function AdminDashboard() {
         </Link>
 
         {/* GALLERY IMAGES */}
-        <Link to="/admin/gallerylist">
+        <Link to="/admin/BlogList">
           <div className="group bg-white shadow-md rounded-xl p-6 border border-red flex items-center gap-5 hover:shadow-xl transition cursor-pointer">
             <div className="bg-blue text-white p-4 rounded-lg group-hover:scale-110 transition">
               <i className="fa-solid fa-image text-2xl"></i>
             </div>
             <div>
-              <p className="text-brandGrey text-sm">Gallery Images</p>
+              <p className="text-brandGrey text-sm">Blogs</p>
               <h2 className="text-xl font-bold font-vollkorn">120</h2>
             </div>
           </div>

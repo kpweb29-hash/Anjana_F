@@ -16,18 +16,19 @@ import AdminLayout from './admin/AdminLayout'
 import AdminDashboard from './admin/AdminDashboard'
 import AddProduct from './admin/products/AddProduct'
 import EditProduct from './admin/products/EditProduct'
-import GalleryList from './admin/gallery/GalleryList'
-import AddGallery from './admin/gallery/AddGallery'
+import BlogList from './admin/blog/BlogList'
+import AddBlog from './admin/blog/AddBlog'
 import Industries from './pages/Industries';
 import Updates from './pages/Updates';
 import SubCategories from './components/SubCategories';
 import ProductDetail from './components/ProductDetail';
 import AllProductList from './components/AllProductList';
+import EditBlog from './admin/blog/Edit-blog';
 
 function App() {
   useEffect(() => {
-  AOS.init({ duration: 1500 });
-}, []);
+    AOS.init({ duration: 1500 });
+  }, []);
 
   return (<>
     <ScrollToTopRoute />
@@ -40,26 +41,27 @@ function App() {
       <Route path='/updates' element={<Updates />} />
       <Route path='/contact' element={<Contact />} />
 
-<Route path="/products/:category" element={<SubCategories />} />
-<Route path="/products/:category/:subcat" element={<AllProductList />} />
-<Route path="/products/:category/:subcat/:productId" element={<ProductDetail />} />
+      <Route path="/products/:category" element={<SubCategories />} />
+      <Route path="/products/:category/:subcat" element={<AllProductList />} />
+      <Route path="/products/:category/:subcat/:productId" element={<ProductDetail />} />
 
       <Route path="login" element={<Login />} />
-          <Route path="/admin" element={<AdminLayout />}>
+      <Route path="/admin" element={<AdminLayout />}>
 
-            {/* DEFAULT ADMIN PAGE */}
-            <Route index element={<AdminDashboard />} />
+        {/* DEFAULT ADMIN PAGE */}
+        <Route index element={<AdminDashboard />} />
 
 
-            {/* PRODUCT ROUTES */}
-            <Route path="productlist" element={<ProductList />} />
-            <Route path="add-product" element={<AddProduct />} />
-            <Route path="edit-product/:id" element={<EditProduct />} />
+        {/* PRODUCT ROUTES */}
+        <Route path="productlist" element={<ProductList />} />
+        <Route path="add-product" element={<AddProduct />} />
+        <Route path="edit-product/:id" element={<EditProduct />} />
 
-            <Route path="gallerylist" element={<GalleryList />} />
-            <Route path="add-gallery" element={<AddGallery />} />
+        <Route path="BlogList" element={<BlogList />} />
+        <Route path="add-blog" element={<AddBlog />} />
+        <Route path="edit-blog/:id" element={<EditBlog />} />
 
-          </Route>
+      </Route>
 
     </Routes>
     <Footer />
