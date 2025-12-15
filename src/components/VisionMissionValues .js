@@ -119,7 +119,7 @@ const VisionMissionValues = () => {
                         <h3 className="text-2xl md:text-3xl font-vollkorn font-bold leading-relaxed">
                             Companies From All Around The Country Trust
                             <br />
-                            <span className="text-red">Anjana Enterprise</span>
+                            <span className="text-red">Anjana Enterprise </span>
                             For Sustainable & Affordable
                             <br />
                             Industrial Metal Products
