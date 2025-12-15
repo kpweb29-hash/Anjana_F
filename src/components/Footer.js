@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const Footer = () => {
   return (
     <footer
-      className="relative bg-blue text-white pt-20"
+      className="relative bg-blue text-white pt-0"
       style={{
         backgroundImage: "url('/images/home/vision2.jpg')",
         backgroundSize: "cover",
@@ -21,7 +21,7 @@ const Footer = () => {
           <img
             src="/images/logo/anjana-footer-logo.jpg"
             alt="Logo"
-            className="mx-auto w-36 mb-6 bg-white"
+            className="mx-auto w-72 mb-6 bg-white p-3 rounded-b-xl"
           />
           <h3 className="text-xl font-vollkorn font-semibold">
             Anjana Enterprise : Your Trusted Partner  In Metal Manufacturing
