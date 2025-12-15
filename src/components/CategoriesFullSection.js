@@ -22,7 +22,7 @@ const CategoriesFullSection = () => {
       id: "03",
       title: "Ferro & Ferro Alloys",
       subtitle: "Stockiest & Suppliers",
-      image: "/images/products/ferro-alloys.png",
+      image: "/images/products/ferro-alloys.webp",
       description:
         "Ferro Chrome • Ferro Silicon • Ferro Manganese • Ferro Moly • High Carbon • Low Carbon • Special Alloys",
     },

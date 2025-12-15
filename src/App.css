@@ -84,25 +84,27 @@ html {
 /* Fade Up for Text */
 .hero-fade-up {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateX(-30px);
   transition: all 0.8s ease-out;
 }
 
 .swiper-slide-active .hero-fade-up {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
 /* Zoom In for Image */
 .hero-zoom {
   opacity: 0;
-  transform: scale(0.7);
+  /* transform: scale(0.7); */
+   transform: translateX(-30px);
   transition: all 0.8s ease-out;
 }
 
 .swiper-slide-active .hero-zoom {
   opacity: 1;
-  transform: scale(1);
+  /* transform: scale(1); */
+   transform: translateX(0);
 }
 
 

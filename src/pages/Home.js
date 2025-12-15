@@ -172,41 +172,6 @@ const Home = () => {
             </div>
           </SwiperSlide>
 
-          {/* 4th Slide */}
-          {/* <SwiperSlide>
-            <div
-              className="w-full h-full bg-cover bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(/images/home/carousel4.webp)` }}
-            >
-              <div className="w-full h-full bg-black/70">
-                <div className="max-w-7xl mx-auto h-full pt-8 pb-14 md:py-0 px-6 grid grid-cols-1 md:grid-cols-2 items-center  gap-0 md:gap-8">
-
-                  <div className="hero-fade-up text-white space-y-4">
-                    <h1 className="text-2xl md:text-5xl font-vollkorn font-semibold leading-tight">
-                      We Offering Complete Range in
-                    </h1>
-
-                    <p className="text-3xl text-gray-200 pb-5">
-                      <span className="font-bold">Ferrous & Non-Ferrous Metal</span> Across India
-                    </p>
-
-                    <button className="bg-red text-white px-6 py-3 rounded-lg font-semibold hover:bg-red/80 transition">
-                      Explore Products
-                    </button>
-                  </div>
-
-                  <div className="flex justify-center md:justify-end">
-                    <img
-                      src="/images/home/carousel1.jpeg"
-                      alt="Hero"
-                      className="hero-zoom max-w-[380px] h-[200px] md:h-[320px] w-full object-cover drop-shadow-xl"
-                    />
-                  </div>
-
-                </div>
-              </div>
-            </div>
-          </SwiperSlide> */}
 
         </Swiper>
       </div>
