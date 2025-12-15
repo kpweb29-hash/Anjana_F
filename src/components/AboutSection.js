@@ -43,7 +43,7 @@ const AboutSection = () => {
           </p>
 
           {/* HEADING */}
-          <h2 className="text-3xl md:text-4xl font-vollkorn font-extrabold text-dark leading-tight">
+          <h2 className="text-3xl md:text-4xl font-vollkorn font-extrabold text-blue leading-tight">
             Anjana Enterprise is a Reputable and Trusted Supplier of<br />
             <span className="text-blue">Industrial Metal Products</span>
           </h2>
