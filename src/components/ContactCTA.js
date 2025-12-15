@@ -40,11 +40,11 @@ const ContactCTA = () => {
 
                         {/* Phone */}
                         <a
-                            href="tel:+91 99984 88480"
+                            href="tel:+91 97248 47466"
                             className="text-lg font-semibold flex items-center gap-2 hover:text-red transition"
                         >
                             <i className="fa-solid fa-phone text-red text-2xl"></i>
-                            +91 99984 88480
+                            +91 97248 47466
                         </a>
 
                         {/* Address */}

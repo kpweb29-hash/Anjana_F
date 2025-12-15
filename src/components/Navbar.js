@@ -17,9 +17,9 @@ const Navbar = () => {
                         {/* RIGHT CONTACT */}
                         <div className="flex items-center gap-6">
 
-                            <a href="tel:9998488480" className="hover:text-red" ><div className="hidden md:flex items-center gap-2">
+                            <a href="tel:97248 47466" className="hover:text-red" ><div className="hidden md:flex items-center gap-2">
                                 <i className="fa-solid fa-phone"></i>
-                                <span>+91 9998488480 | +91 9998488480</span>
+                                <span>+91 97248 47466 | +91 90812 77795</span>
                             </div></a>
 
                             <a href="mailto:anjanaenterprise117@gmail.com" className="hover:text-red" target="_blank" rel="noreferrer"><div className="hidden lg:flex items-center gap-2">
