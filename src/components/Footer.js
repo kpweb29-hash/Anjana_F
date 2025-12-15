@@ -12,7 +12,7 @@ const Footer = () => {
       }}
     >
       {/* DARK OVERLAY */}
-      <div className="absolute inset-0 bg-blue/95"></div>
+      <div className="absolute inset-0 bg-blue/90"></div>
 
       <div className="relative max-w-7xl mx-auto px-6">
 

@@ -14,11 +14,11 @@ const AboutDirector = () => {
           </p>
 
           <h2 className="text-3xl font-vollkorn font-bold text-blue mt-2" data-aos="fade-up" data-aos-delay="100">
-            Mr. Ganpat Choudhary
+            Mr. Sankar N Patel
           </h2>
 
           <p className="text-gray-600 leading-relaxed mt-4" data-aos="fade-up" data-aos-delay="200">
-            Mr. Ganpat Choudhary is a proponent of unwavering commitment to excellence.
+            Mr. Sankar N Patel is a proponent of unwavering commitment to excellence.
             He ensures that the principles of quality, precision, and client satisfaction
             are woven into the fabric of our company’s culture. He understands that our
             clients are at the core of our success. He places strong emphasis on understanding

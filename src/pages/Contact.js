@@ -14,7 +14,7 @@ const Contact = () => {
 
             {/* PHONE */}
             <a
-              href="tel:+91 99984 88480"
+              href="tel:+91 97248 47466"
               data-aos="fade-down-right"
               className="flex items-center gap-4 p-6 bg-blue text-white rounded-xl shadow-lg hover:shadow-2xl transition"
             >
@@ -23,13 +23,13 @@ const Contact = () => {
               </div>
               <div>
                 <h3 className="text-xl font-vollkorn font-bold">Call Us</h3>
-                <p className="text-gray-200">+91 99984 88480</p>
+                <p className="text-gray-200">+91 97248 47466</p>
               </div>
             </a>
 
             {/* PHONE */}
             <a
-              href="tel:+91 99984 88480"
+              href="tel:+91 90812 77795"
                data-aos="fade-up-right"
               className="flex items-center gap-4 p-6 bg-blue text-white rounded-xl shadow-lg hover:shadow-2xl transition"
             >
@@ -38,7 +38,7 @@ const Contact = () => {
               </div>
               <div>
                 <h3 className="text-xl font-vollkorn font-bold">Call Us</h3>
-                <p className="text-gray-200">+91 99984 88480</p>
+                <p className="text-gray-200">+91 90812 77795</p>
               </div>
             </a>
 
