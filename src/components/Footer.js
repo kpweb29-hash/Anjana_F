@@ -19,7 +19,7 @@ const Footer = () => {
         {/* LOGO + TAGLINE */}
         <div className="text-center mb-12">
           <img
-            src="/images/logo/anjana-logo.png"
+            src="/images/logo/anjana-footer-logo.jpg"
             alt="Logo"
             className="mx-auto w-36 mb-6 bg-white"
           />
@@ -94,21 +94,21 @@ const Footer = () => {
               <a href="tel:9998488480" target="_blank" rel="noreferrer" className="hover:text-red"> <li className="flex items-start gap-3">
                 <i className="fa-solid fa-phone mt-1"></i>
                 <div>
-                  +91 9998488480 
+                  +91 97248 47466
                 </div>
               </li></a>
 
               <a href="tel:9998488480" target="_blank" rel="noreferrer" className="hover:text-red"> <li className="flex items-start gap-3">
                 <i className="fa-solid fa-phone mt-1"></i>
                 <div>
-                  +91 9998488480 
+                  +91 90812 77795 
                 </div>
               </li></a>
 
-              <a href="mailto:support@apnawebx.com" target="_blank" rel="noreferrer" className="hover:text-red"><li className="flex items-start gap-3">
+              <a href="mailto:anjanaenterprise117@gmail.com" target="_blank" rel="noreferrer" className="hover:text-red"><li className="flex items-start gap-3">
                 <i className="fa-solid fa-envelope mt-1"></i>
                 <div>
-                  support@apnawebx.com
+                  anjanaenterprise117@gmail.com
                 </div>
               </li></a>
 

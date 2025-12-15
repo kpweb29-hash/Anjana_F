@@ -44,7 +44,7 @@ const Contact = () => {
 
             {/* EMAIL */}
             <a
-              href="mailto:support@apnawebx.com"
+              href="mailto:anjanaenterprise117@gmail.com"
               data-aos="fade-up-left"
               className="flex items-center gap-4 p-6 mb-6 bg-blue text-white rounded-xl shadow-lg hover:shadow-2xl transition"
             >
@@ -53,7 +53,7 @@ const Contact = () => {
               </div>
               <div>
                 <h3 className="text-xl font-vollkorn font-bold">Email Us</h3>
-                <p className="text-gray-200">support@apnawebx.com</p>
+                <p className="text-gray-200">anjanaenterprise117@gmail.com</p>
               </div>
             </a>
 

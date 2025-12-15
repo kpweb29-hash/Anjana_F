@@ -22,9 +22,9 @@ const Navbar = () => {
                                 <span>+91 9998488480 | +91 9998488480</span>
                             </div></a>
 
-                            <a href="mailto:support@apnawebx.com" className="hover:text-red" target="_blank" rel="noreferrer"><div className="hidden lg:flex items-center gap-2">
+                            <a href="mailto:anjanaenterprise117@gmail.com" className="hover:text-red" target="_blank" rel="noreferrer"><div className="hidden lg:flex items-center gap-2">
                                 <i className="fa-solid fa-envelope"></i>
-                                <span>support@apnawebx.com</span>
+                                <span>anjanaenterprise117@gmail.com</span>
                             </div></a>
 
                             {/* SOCIAL ICONS */}
@@ -299,9 +299,9 @@ const Navbar = () => {
                         <span>+91 9998488480</span>
                     </div></a>
 
-                    <a href="mailto:support@apnawebx.com" className="hover:text-red" target="_blank" rel="noreferrer"><div className="flex items-center gap-2 my-2">
+                    <a href="mailto:anjanaenterprise117@gmail.com" className="hover:text-red" target="_blank" rel="noreferrer"><div className="flex items-center gap-2 my-2">
                         <i className="fa-solid fa-envelope icon"></i>
-                        <span>support@apnawebx.com</span>
+                        <span>anjanaenterprise117@gmail.com</span>
                     </div></a>
 
                     <a href="https://maps.app.goo.gl/zNxoYHW8Eiv4fZbg8" className="hover:text-red" target="_blank" rel="noreferrer"><div className="flex items-center gap-2">
