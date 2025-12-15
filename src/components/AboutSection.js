@@ -50,7 +50,7 @@ const AboutSection = () => {
 
           {/* SUB TEXT */}
           <p className="text-gray-700">
-            We are committed to providing high-quality ferrous & non-ferrous metal products
+            Anjana Enterprise are committed to providing high-quality ferrous & non-ferrous metal products
             to industries across India. Our mission is to deliver durable and reliable
             products that meet the expectations of our customers and partners.
           </p>

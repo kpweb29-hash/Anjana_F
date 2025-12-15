@@ -60,7 +60,7 @@ const Home = () => {
                   {/* RIGHT IMAGE */}
                   <div className="flex justify-center md:justify-end">
                     <img
-                      src="/images/home/carousel-human.png"
+                      src="/images/home/director.png"
                       alt="Hero"
                       className="hero-zoom max-w-[380px] h-[300px] md:mt-12 md:h-[520px] w-full object-contain drop-shadow-xl" data-aos="zoom-in" data-aos-duration="1000"
                     />

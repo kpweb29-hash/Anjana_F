@@ -71,7 +71,7 @@ const AboutDirector = () => {
         {/* RIGHT IMAGE BLOCK */}
         <div className="relative" data-aos="fade-up" data-aos-delay="300">
           <img
-            src="/images/about/about-profile.png"
+            src="/images/about/director.jpg"
             alt="Director"
             className="w-full rounded shadow-lg object-cover"
           />
