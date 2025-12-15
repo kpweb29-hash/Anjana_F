@@ -55,7 +55,7 @@ const ContactCTA = () => {
                                     Visit Our Store
                                 </p>
                                 <p className=" text-sm">
-                                    SUVAN BUSSINESS PARK, SOMA TEXTILE MILL COMPOUND, 109, Rakhial, Ahmedabad, Gujarat 380021
+                                    A -109, SUVAN BUSSINESS PARK, SOMA TEXTILE MILL COMPOUND,  Rakhial, Ahmedabad, Gujarat 380021
                                 </p>
                             </a>
                         </div>

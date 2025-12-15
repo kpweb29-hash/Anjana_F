@@ -66,7 +66,7 @@ const Contact = () => {
                 <div>
                   <h3 className="text-xl font-vollkorn font-bold">Visit Us</h3>
                   <p className="text-gray-200">
-                    SUVAN BUSSINESS PARK, SOMA TEXTILE MILL COMPOUND, 109, Rakhial, Ahmedabad, Gujarat 380021
+                    A -109, SUVAN BUSSINESS PARK, SOMA TEXTILE MILL COMPOUND,  Rakhial, Ahmedabad, Gujarat 380021
                   </p>
                 </div>
             </a>

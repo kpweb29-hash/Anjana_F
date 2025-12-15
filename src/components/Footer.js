@@ -115,7 +115,7 @@ const Footer = () => {
               <a href="https://maps.app.goo.gl/zNxoYHW8Eiv4fZbg8" target="_blank" rel="noreferrer" className="hover:text-red"> <li className="flex items-start gap-3">
                 <i className="fa-solid fa-location-dot mt-1"></i>
                 <div>
-                  SUVAN BUSSINESS PARK, SOMA TEXTILE MILL COMPOUND, 109, Rakhial, Ahmedabad, Gujarat 380021
+                  A -109, SUVAN BUSSINESS PARK, SOMA TEXTILE MILL COMPOUND,  Rakhial, Ahmedabad, Gujarat 380021
                 </div>
               </li></a>
             </ul>
