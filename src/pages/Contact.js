@@ -6,7 +6,12 @@ const Contact = () => {
     <>
       <Breadcrumb />
 
-      <section className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-6 text-center py-10">
+        <h1 className="text-4xl text-blue font-bold mb-2">Feel Free to Reach Out for Further Details.</h1>
+        <p className="text-grey">At Anjana Enterprise, we're dedicated to providing exceptional metal fabrication and customization services to meet your unique needs. Our commitment to quality, precision, and client satisfaction is unwavering, and we're here to assist you with your projects, answer your questions, and provide the support you require.</p>
+      </div>
+
+      <section className="py-10 bg-white">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12">
 
           {/* LEFT SIDE CTA BOXES */}
