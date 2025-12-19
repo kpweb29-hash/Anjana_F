@@ -1,6 +1,13 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function AdminSidebar({ sidebarOpen, setSidebarOpen }) {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("admin-auth");
+    localStorage.removeItem("admin-token");
+    navigate("/login");
+  };
 
 
   const linkClass = ({ isActive }) =>
@@ -44,9 +51,9 @@ export default function AdminSidebar({ sidebarOpen, setSidebarOpen }) {
             <i className="fa-solid fa-image mr-2"></i> Updates
           </NavLink>
 
-          <NavLink to="/login" className={linkClass}>
+          <button onClick={handleLogout} className={linkClass}>
             <i className="fa-solid fa-right-from-bracket mr-2"></i> Logout
-          </NavLink>
+          </button>
         </nav>
       </aside>
     </>

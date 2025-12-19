@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BASE_URL from "../BASEURL";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -13,14 +14,37 @@ export default function Login() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    // FRONTEND ONLY (No backend validation)
-    // Backend developer will replace this with real API
-    if (form.email && form.password) {
-      localStorage.setItem("admin-auth", "true");
-      navigate("/admin");
+    try {
+      const response = await fetch(`${BASE_URL}/admin/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: form.email,
+          password: form.password,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.message === "Login successful" && data.token) {
+          localStorage.setItem("admin-auth", "true");
+          localStorage.setItem("admin-token", data.token);
+          navigate("/admin");
+        } else {
+          alert("Login failed: " + (data.message || "Invalid response"));
+        }
+      } else {
+        const errorText = await response.text();
+        alert(`Login failed: ${response.status} ${response.statusText}. ${errorText}`);
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert(`An error occurred during login: ${error.message}. Please check your network connection or backend configuration.`);
     }
   };
 

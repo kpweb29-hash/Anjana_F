@@ -1,6 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function AdminDashboard() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("admin-auth") !== "true") {
+      navigate("/login");
+    }
+  }, [navigate]);
   return (<>
     {/* PAGE CONTENT */}
     <div className="p-6">
