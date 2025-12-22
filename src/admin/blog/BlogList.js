@@ -1,30 +1,40 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import BASE_URL from "../../BASEURL";
 
 export default function BlogList() {
-  const blogs = [
-    {
-      _id: "1",
-      title: "How Quality Raw Materials Impact Industrial Manufacturing",
-      image: "/images/products/angle-channel.webp",
-      shortDesc:
-        "Learn why choosing high-grade ferrous & non-ferrous metals is essential...",
-    },
-    {
-      _id: "2",
-      title: "Top Trends Shaping the Future of the Metal Industry in India",
-      image: "/images/products/ms-pipes.webp",
-      shortDesc:
-        "Discover major innovations transforming metal sourcing & industrial production...",
-    },
-    {
-      _id: "3",
-      title: "Why Non-Ferrous Metals Are Critical for Modern Engineering",
-      image: "/images/products/non-ferrous-metal.png",
-      shortDesc:
-        "Explore how copper, aluminum, and brass enable high-performance engineering...",
-    },
-  ];
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      const token = localStorage.getItem('admin-token');
+      try {
+        const response = await fetch(`${BASE_URL}/blog`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setBlogs(data);
+        } else {
+          alert('Failed to fetch blogs');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Error fetching blogs');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
+  if (loading) {
+    return <div className="p-6 md:pt-24">Loading blogs...</div>;
+  }
 
   return (
     <div className="p-6 md:pt-24">
@@ -65,7 +75,7 @@ export default function BlogList() {
                 </td>
                 <td className="p-3 font-semibold">{blog.title}</td>
                 <td className="p-3 text-sm text-gray-700">
-                  {blog.shortDesc.substring(0, 80)}...
+                  {blog.shortDescription.substring(0, 80)}...
                 </td>
 
                 <td className="p-3 flex gap-2">
@@ -103,7 +113,7 @@ export default function BlogList() {
             />
 
             <h3 className="font-bold text-blue">{blog.title}</h3>
-            <p className="text-sm text-gray-600 mt-1">{blog.shortDesc}</p>
+            <p className="text-sm text-gray-600 mt-1">{blog.shortDescription}</p>
 
             <div className="absolute right-3 bottom-3 flex gap-2">
               <Link

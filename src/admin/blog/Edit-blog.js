@@ -1,26 +1,89 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import BASE_URL from "../../BASEURL";
 
 export default function EditBlog() {
   const navigate = useNavigate();
   const { id } = useParams();
-
-  // Demo blog data — replace with backend later
   const [blog, setBlog] = useState({
-    title: "How Quality Raw Materials Impact Industrial Manufacturing",
-    shortDesc:
-      "High-quality raw materials improve manufacturing efficiency, durability, and performance.",
-    fullDesc:
-      "Using high-grade ferrous and non-ferrous metals plays a crucial role in industrial production...",
-    image: "/images/products/angle-channel.webp",
+    title: "",
+    shortDescription: "",
+    image: null,
   });
+  const [preview, setPreview] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  const [preview, setPreview] = useState(blog.image);
+  useEffect(() => {
+    const fetchBlog = async () => {
+      const token = localStorage.getItem('admin-token');
+      try {
+        const response = await fetch(`${BASE_URL}/blog/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setBlog({
+            title: data.title,
+            shortDescription: data.shortDescription,
+            image: data.image,
+          });
+          setPreview(data.image);
+        } else {
+          alert('Failed to fetch blog');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Error fetching blog');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlog();
+  }, [id]);
 
   const handleImagePreview = (e) => {
     const file = e.target.files[0];
-    if (file) setPreview(URL.createObjectURL(file));
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+      setBlog({ ...blog, image: file });
+    }
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("title", blog.title);
+    formData.append("shortDescription", blog.shortDescription);
+    if (blog.image && typeof blog.image !== 'string') {
+      formData.append("image", blog.image);
+    }
+
+    const token = localStorage.getItem('admin-token');
+    try {
+      const response = await fetch(`${BASE_URL}/blog/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+      if (response.ok) {
+        alert("Blog updated successfully!");
+        navigate("/admin/bloglist");
+      } else {
+        alert('Failed to update blog');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Error updating blog');
+    }
+  };
+
+  if (loading) {
+    return <div className="p-6 md:pt-24">Loading blog...</div>;
+  }
 
   return (
     <div className="p-6 md:pt-24">
@@ -36,7 +99,7 @@ export default function EditBlog() {
       <div className="bg-white p-6 shadow-md rounded-xl border border-red mt-4">
 
         {/* FORM */}
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
           {/* BLOG TITLE */}
           <div className="flex flex-col">
@@ -49,16 +112,25 @@ export default function EditBlog() {
             />
           </div>
 
-         
+          {/* SHORT DESCRIPTION */}
+          {/* <div className="flex flex-col">
+            <label className="font-medium text-blue mb-1">Short Description</label>
+            <input
+              type="text"
+              value={blog.shortDescription}
+              className="border border-blue rounded-lg px-4 py-2 focus:outline-brandBlue"
+              onChange={(e) => setBlog({ ...blog, shortDescription: e.target.value })}
+            />
+          </div> */}
 
           {/* FULL DESCRIPTION */}
           <div className="flex flex-col md:col-span-2">
-            <label className="font-medium text-blue mb-1">Full Description</label>
+            <label className="font-medium text-blue mb-1">Description</label>
             <textarea
               rows="7"
-              value={blog.fullDesc}
+              value={blog.shortDescription}
               className="border border-blue rounded-lg px-4 py-2 focus:outline-brandBlue"
-              onChange={(e) => setBlog({ ...blog, fullDesc: e.target.value })}
+              onChange={(e) => setBlog({ ...blog, shortDescription: e.target.value })}
             ></textarea>
           </div>
 
@@ -80,24 +152,25 @@ export default function EditBlog() {
             />
           </div>
 
+          {/* ACTION BUTTONS */}
+          <div className="flex justify-end gap-4 mt-8 md:col-span-2">
+            <button
+              type="button"
+              className="px-6 py-2 rounded-lg border border-blue bg-white hover:bg-red hover:text-white transition"
+              onClick={() => navigate("/admin/bloglist")}
+            >
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              className="px-6 py-2 rounded-lg bg-blue text-white hover:bg-red transition"
+            >
+              Update Blog
+            </button>
+          </div>
+
         </form>
-
-        {/* ACTION BUTTONS */}
-        <div className="flex justify-end gap-4 mt-8">
-          <button
-            className="px-6 py-2 rounded-lg border border-blue bg-white hover:bg-red hover:text-white transition"
-            onClick={() => navigate("/admin/bloglist")}
-          >
-            Cancel
-          </button>
-
-          <button
-            className="px-6 py-2 rounded-lg bg-blue text-white hover:bg-red transition"
-            onClick={() => navigate("/admin/bloglist")}
-          >
-            Update Blog
-          </button>
-        </div>
 
       </div>
     </div>
