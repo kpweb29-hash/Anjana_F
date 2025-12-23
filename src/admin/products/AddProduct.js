@@ -1,31 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import BASE_URL from "../../BASEURL";
 
 export default function AddProduct() {
   const navigate = useNavigate();
 
-  // MAIN CATEGORY → SUBCATEGORY
-  const categories = {
-    "Ferrous Metal": ["SS Pipes", "MS Pipes", "GI Pipes", "SS Rods"],
-    "Non-Ferrous Metal": ["Brass Rods", "Copper Sheets", "Aluminium Flats"],
-    "Industrial Flanges": ["SS Flanges", "MS Flanges", "Blind Flanges"],
-    "Industrial Valves": ["Ball Valves", "Gate Valves", "Globe Valves"],
-    "Industrial Fittings": ["Elbow Fittings", "Tee Fittings", "Reducer Fittings"],
-    "Dairy Fittings": ["Dairy Bend", "Dairy Tee", "Dairy Clamp"],
-    "Fasteners": ["Nut Bolt", "Washer", "Screws"],
-    "Perforated Sheet": ["SS Perforated", "MS Perforated"],
-  };
-
   // FORM STATE
   const [product, setProduct] = useState({
     name: "",
-    category: "Ferrous Metal",
-    subcategory: "SS Pipes",
+    category: "",
+    subcategory: "",
     description: "",
     image: "",
   });
 
+  const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const [previewImage, setPreviewImage] = useState(null);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/category`);
+        if (response.ok) {
+          const data = await response.json();
+          setCategories(data);
+          if (data.length > 0) {
+            setProduct(prev => ({ ...prev, category: data[0].categoryName.name }));
+            fetchSubcategories(data[0].categoryName.name);
+          }
+        } else {
+          console.error('Failed to fetch categories');
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchCategories();
+  }, []);
+
+  const fetchSubcategories = async (category) => {
+    try {
+      const response = await fetch(`${BASE_URL}/subcategory?category=${category}`);
+      if (response.ok) {
+        const data = await response.json();
+        setSubcategories(data);
+        if (data.length > 0) {
+          setProduct(prev => ({ ...prev, subcategory: data[0].subCategoryName.name }));
+        }
+      } else {
+        console.error('Failed to fetch subcategories');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // Handle image preview
   const handleImagePreview = (e) => {
@@ -42,8 +75,9 @@ export default function AddProduct() {
     setProduct({
       ...product,
       category: selected,
-      subcategory: categories[selected][0],
+      subcategory: "",
     });
+    fetchSubcategories(selected);
   };
 
   return (
@@ -86,8 +120,8 @@ export default function AddProduct() {
               onChange={handleCategoryChange}
               className="border border-blue rounded-lg px-4 py-2"
             >
-              {Object.keys(categories).map((cat) => (
-                <option key={cat}>{cat}</option>
+              {categories.map((cat) => (
+                <option key={cat.categoryName.name} value={cat.categoryName.name}>{cat.categoryName.name}</option>
               ))}
             </select>
           </div>
@@ -102,8 +136,8 @@ export default function AddProduct() {
               }
               className="border border-blue rounded-lg px-4 py-2"
             >
-              {categories[product.category].map((sub) => (
-                <option key={sub}>{sub}</option>
+              {subcategories.map((sub) => (
+                <option key={sub.subCategoryName.name} value={sub.subCategoryName.name}>{sub.subCategoryName.name}</option>
               ))}
             </select>
           </div>

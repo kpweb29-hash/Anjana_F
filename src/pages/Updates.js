@@ -1,7 +1,42 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Breadcrumb from '../components/Breadcrumb'
+import BASE_URL from '../BASEURL'
 
 const Updates = () => {
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const response = await fetch(`${BASE_URL}/blog`);
+        if (response.ok) {
+          const data = await response.json();
+          setBlogs(data);
+        } else {
+          console.error('Failed to fetch blogs');
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBlogs();
+  }, []);
+
+  if (loading) {
+    return (
+      <>
+        <Breadcrumb />
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-6 text-center">
+            Loading blogs...
+          </div>
+        </section>
+      </>
+    );
+  }
   return (
     <>
     
@@ -21,79 +56,28 @@ const Updates = () => {
 
     {/* Blog Grid */}
     <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-
-      {/* Blog 1 */}
-      <div 
-        className="bg-white rounded-xl shadow-md hover:shadow-xl transition hover:-translate-y-1 border"
-        data-aos="fade-up" 
-        data-aos-delay="100"
-      >
-        <img 
-          src="/images/products/angle-channel.webp" 
-          alt="Blog 1" 
-          className="w-full h-56 object-cover rounded-t-xl"
-        />
-        <div className="p-6">
-          <h3 className="text-xl font-vollkorn font-bold text-blue">
-            How Quality Raw Materials Impact Industrial Manufacturing
-          </h3>
-          <p className="text-gray-600 text-sm mt-3 leading-relaxed">
-            Learn why choosing high-grade ferrous & non-ferrous metals is essential
-            for achieving strength, precision, and long-term performance in
-            manufacturing and engineering applications.
-          </p>
-          
+      {blogs.map((blog, index) => (
+        <div 
+          key={blog._id}
+          className="bg-white rounded-xl shadow-md hover:shadow-xl transition hover:-translate-y-1 border"
+          data-aos="fade-up" 
+          data-aos-delay={`${(index + 1) * 100}`}
+        >
+          <img 
+            src={blog.image} 
+            alt={blog.title} 
+            className="w-full h-56 object-cover rounded-t-xl"
+          />
+          <div className="p-6">
+            <h3 className="text-xl font-vollkorn font-bold text-blue">
+              {blog.title}
+            </h3>
+            <p className="text-gray-600 text-sm mt-3 leading-relaxed">
+              {blog.shortDescription}
+            </p>
+          </div>
         </div>
-      </div>
-
-      {/* Blog 2 */}
-      <div 
-        className="bg-white rounded-xl shadow-md hover:shadow-xl transition hover:-translate-y-1 border"
-        data-aos="fade-up" 
-        data-aos-delay="200"
-      >
-        <img 
-          src="/images/products/ms-pipes.webp" 
-          alt="Blog 2" 
-          className="w-full h-56 object-cover rounded-t-xl"
-        />
-        <div className="p-6">
-          <h3 className="text-xl font-vollkorn font-bold text-blue">
-            Top Trends Shaping the Future of the Metal Industry in India
-          </h3>
-          <p className="text-gray-600 text-sm mt-3 leading-relaxed">
-            From automation to sustainable metal solutions, discover the
-            innovations that are transforming metal sourcing, fabrication, and
-            industrial production across India.
-          </p>
-       
-        </div>
-      </div>
-
-      {/* Blog 3 */}
-      <div 
-        className="bg-white rounded-xl shadow-md hover:shadow-xl transition hover:-translate-y-1 border"
-        data-aos="fade-up" 
-        data-aos-delay="300"
-      >
-        <img 
-          src="/images/products/non-ferrous-metal.png" 
-          alt="Blog 3" 
-          className="w-full h-56 object-cover rounded-t-xl"
-        />
-        <div className="p-6">
-          <h3 className="text-xl font-vollkorn font-bold text-blue">
-            Why Non-Ferrous Metals Are Critical for Modern Engineering
-          </h3>
-          <p className="text-gray-600 text-sm mt-3 leading-relaxed">
-            Explore how copper, aluminium, brass, and other non-ferrous materials
-            enable high-performance solutions in electrical, automotive, and
-            heavy-machinery industries.
-          </p>
-          
-        </div>
-      </div>
-
+      ))}
     </div>
 
   </div>
