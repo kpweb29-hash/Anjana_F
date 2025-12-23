@@ -1,43 +1,69 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import BASE_URL from "../../BASEURL";
 
 export default function ProductList() {
-  
-  // Your real product structure sample (you will replace with backend data later)
-  const products = [
-    {
-      _id: "1",
-      name: "SS Pipe 304",
-      image: "/images/products/1.png",
-      category: "Ferrous Metal",
-      subcategory: "SS Pipes",
-      description: "Stainless Steel Pipe 304 Grade",
-    },
-    {
-      _id: "2",
-      name: "SS Pipe 316",
-      image: "/images/products/2.png",
-      category: "Ferrous Metal",
-      subcategory: "SS Pipes",
-      description: "Stainless Steel Pipe 316 Grade",
-    },
-    {
-      _id: "3",
-      name: "Brass Round Rod",
-      image: "/images/products/3.png",
-      category: "Non-Ferrous Metal",
-      subcategory: "Brass Rods",
-      description: "High Quality Brass Round Rod",
-    },
-    {
-      _id: "4",
-      name: "Industrial Flange 150 Class",
-      image: "/images/products/4.png",
-      category: "Industrial Flanges",
-      subcategory: "SS Flanges",
-      description: "Stainless Steel Industrial Flange 150 Class",
-    },
-  ];
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch products from API
+    const fetchProducts = async () => {
+      try {
+        const token = localStorage.getItem("admin-token");
+        const response = await fetch(`${BASE_URL}/product`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setProducts(data);
+        } else {
+          console.error("Failed to fetch products");
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      try {
+        const token = localStorage.getItem("admin-token");
+        const response = await fetch(`${BASE_URL}/product/${id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          setProducts(products.filter(prod => prod._id !== id));
+          alert("Product deleted successfully!");
+        } else {
+          alert("Failed to delete product");
+        }
+      } catch (error) {
+        console.error("Error deleting product:", error);
+        alert("An error occurred while deleting the product.");
+      }
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="p-6 md:pt-24">
+        <div className="text-center">Loading products...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 md:pt-24">
@@ -71,11 +97,11 @@ export default function ProductList() {
             {products.map((prod) => (
               <tr key={prod._id} className="border-b hover:bg-gray-100">
                 <td className="p-3">
-                  <img src={prod.image} className="h-14 w-14 object-cover rounded-lg border" alt={prod.name} />
+                  <img src={prod.image} className="h-14 w-14 object-cover rounded-lg border" alt={prod.productName} />
                 </td>
-                <td className="p-3 font-semibold">{prod.name}</td>
-                <td className="p-3">{prod.category}</td>
-                <td className="p-3">{prod.subcategory}</td>
+                <td className="p-3 font-semibold">{prod.productName}</td>
+                <td className="p-3">{prod.categoryId?.categoryName || prod.category}</td>
+                <td className="p-3">{prod.subCategoryId?.subCategoryName || prod.subcategory}</td>
                 <td className="p-3">{prod.description}</td>
                 <td className="p-3 flex gap-2">
                   <Link
@@ -87,7 +113,7 @@ export default function ProductList() {
 
                   <button
                     className="bg-red p-2 text-white rounded hover:bg-blue transition"
-                    onClick={() => alert("Delete logic will be added")}
+                    onClick={() => handleDelete(prod._id)}
                   >
                     <i className="fa-solid fa-trash"></i>
                   </button>
@@ -112,12 +138,12 @@ export default function ProductList() {
               <img
                 src={prod.image}
                 className="h-16 w-16 object-cover rounded-lg border"
-                alt={prod.name}
+                alt={prod.productName}
               />
               <div>
-                <h3 className="text-blue font-semibold">{prod.name}</h3>
-                <p className="text-sm text-gray-600">{prod.category}</p>
-                <p className="text-xs text-gray-500">{prod.subcategory}</p>
+                <h3 className="text-blue font-semibold">{prod.productName}</h3>
+                <p className="text-sm text-gray-600">{prod.categoryId?.categoryName || prod.category}</p>
+                <p className="text-xs text-gray-500">{prod.subCategoryId?.subCategoryName || prod.subcategory}</p>
                 <p className="text-xs text-gray-500">{prod.description}</p>
               </div>
             </div>
@@ -133,7 +159,7 @@ export default function ProductList() {
 
               <button
                 className="bg-blue p-1 text-white rounded-lg hover:bg-red transition"
-                onClick={() => alert("Delete logic will be added")}
+                onClick={() => handleDelete(prod._id)}
               >
                 <i className="fa-solid fa-trash"></i>
               </button>

@@ -1,53 +1,158 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import BASE_URL from "../../BASEURL";
 
 export default function EditProduct() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  // CATEGORY & SUBCATEGORY DATA (you can later load from backend)
-  const categories = {
-    "Ferrous Metal": ["SS Pipes", "MS Pipes", "GI Pipes", "SS Rods"],
-    "Non-Ferrous Metal": ["Brass Rods", "Copper Sheets", "Aluminium Flats"],
-    "Industrial Flanges": ["SS Flanges", "MS Flanges", "Blind Flanges"],
-    "Industrial Valves": ["Ball Valves", "Gate Valves", "Globe Valves"],
-    "Industrial Fittings": ["Elbow Fittings", "Tee Fittings", "Reducer Fittings"],
-    "Dairy Fittings": ["Dairy Bend", "Dairy Tee", "Dairy Clamp"],
-    "Fasteners": ["Nut Bolt", "Washer", "Screws"],
-    "Perforated Sheet": ["SS Perforated", "MS Perforated"],
-  };
+  // State for categories and subcategories
+  const [categories, setCategories] = useState([]);
+  const [loadingCategories, setLoadingCategories] = useState(true);
 
-  // SAMPLE DATA (replace by backend fetch later)
+  // State for product
   const [product, setProduct] = useState({
-    name: "SS Pipe 304",
-    category: "Ferrous Metal",
-    subcategory: "SS Pipes",
-    description: "Stainless Steel Pipe 304 Grade",
-    image: "/images/products/ss304.png",
+    productName: "",
+    categoryId: "",
+    subCategoryId: "",
+    description: "",
+    image: "",
   });
 
-  const [preview, setPreview] = useState(product.image);
+  const [preview, setPreview] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [updating, setUpdating] = useState(false);
 
-  // 🔹 Handle category change
+  // Fetch categories and subcategories
+  useEffect(() => {
+    fetch(`${BASE_URL}/subcategory`)
+      .then(res => res.json())
+      .then(data => {
+        const categoryMap = {};
+        data.forEach(sub => {
+          const catId = sub.categoryId._id;
+          const catName = sub.categoryId.categoryName;
+          if (!categoryMap[catId]) {
+            categoryMap[catId] = {
+              id: catId,
+              name: catName,
+              subcategories: []
+            };
+          }
+          categoryMap[catId].subcategories.push({
+            id: sub._id,
+            name: sub.subCategoryName
+          });
+        });
+        const categoryList = Object.values(categoryMap);
+        setCategories(categoryList);
+        setLoadingCategories(false);
+      })
+      .catch(err => {
+        console.error('Error fetching subcategories:', err);
+        setLoadingCategories(false);
+      });
+  }, []);
+
+  // Fetch product data
+  useEffect(() => {
+    if (id) {
+      const token = localStorage.getItem("admin-token");
+      fetch(`${BASE_URL}/product/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(res => res.json())
+        .then(data => {
+          setProduct({
+            productName: data.productName || "",
+            categoryId: data.categoryId?._id || data.categoryId || "",
+            subCategoryId: data.subCategoryId?._id || data.subCategoryId || "",
+            description: data.description || "",
+            image: data.image || "",
+          });
+          setPreview(data.image || "");
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error('Error fetching product:', err);
+          setLoading(false);
+        });
+    }
+  }, [id]);
+
+  // Handle category change
   const handleCategoryChange = (e) => {
-    const selected = e.target.value;
+    const selectedCategoryId = e.target.value;
+    const selectedCategory = categories.find(cat => cat.id === selectedCategoryId);
     setProduct({
       ...product,
-      category: selected,
-      subcategory: categories[selected][0], // auto-select 1st subcategory
+      categoryId: selectedCategoryId,
+      subCategoryId: selectedCategory?.subcategories[0]?.id || "",
     });
   };
 
-  // 🔹 Handle subcategory change
+  // Handle subcategory change
   const handleSubCategoryChange = (e) => {
-    setProduct({ ...product, subcategory: e.target.value });
+    setProduct({ ...product, subCategoryId: e.target.value });
   };
 
-  // 🔹 Image Upload Preview
+  // Image Upload Preview
   const handleImageChange = (e) => {
     const file = e.target.files[0];
-    if (file) setPreview(URL.createObjectURL(file));
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+      setProduct({ ...product, image: file });
+    }
   };
+
+  // Handle form submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setUpdating(true);
+
+    const formData = new FormData();
+    formData.append("productName", product.productName);
+    formData.append("categoryId", product.categoryId);
+    formData.append("subCategoryId", product.subCategoryId);
+    formData.append("description", product.description);
+    if (product.image && typeof product.image !== 'string') {
+      formData.append("image", product.image);
+    }
+
+    try {
+      const token = localStorage.getItem("admin-token");
+      const response = await fetch(`${BASE_URL}/product/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        alert("Product updated successfully!");
+        navigate("/admin/productlist");
+      } else {
+        const errorText = await response.text();
+        alert(`Failed to update product: ${response.status} ${response.statusText}. ${errorText}`);
+      }
+    } catch (error) {
+      console.error("Error updating product:", error);
+      alert("An error occurred while updating the product.");
+    } finally {
+      setUpdating(false);
+    }
+  };
+
+  if (loading || loadingCategories) {
+    return (
+      <div className="p-6 md:pt-24">
+        <div className="text-center">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 md:pt-24">
@@ -66,6 +171,8 @@ export default function EditProduct() {
       {/* FORM BOX */}
       <div className="bg-white shadow-md rounded-xl p-6 border border-red">
 
+        <form onSubmit={handleSubmit}>
+
         <div className="grid md:grid-cols-2 gap-6">
 
           {/* LEFT SIDE FORM */}
@@ -77,9 +184,9 @@ export default function EditProduct() {
             </label>
             <input
               type="text"
-              value={product.name}
+              value={product.productName}
               onChange={(e) =>
-                setProduct({ ...product, name: e.target.value })
+                setProduct({ ...product, productName: e.target.value })
               }
               className="w-full px-4 py-2 border rounded-lg border-blue focus:outline-brandBlue"
             />
@@ -89,12 +196,12 @@ export default function EditProduct() {
               Category
             </label>
             <select
-              value={product.category}
+              value={product.categoryId}
               onChange={handleCategoryChange}
               className="w-full px-4 py-2 border rounded-lg border-blue"
             >
-              {Object.keys(categories).map((cat) => (
-                <option key={cat}>{cat}</option>
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id}>{cat.name}</option>
               ))}
             </select>
 
@@ -103,13 +210,13 @@ export default function EditProduct() {
               Subcategory
             </label>
             <select
-              value={product.subcategory}
+              value={product.subCategoryId}
               onChange={handleSubCategoryChange}
               className="w-full px-4 py-2 border rounded-lg border-blue"
             >
-              {categories[product.category].map((sub) => (
-                <option key={sub}>{sub}</option>
-              ))}
+              {categories.find(cat => cat.id === product.categoryId)?.subcategories.map((sub) => (
+                <option key={sub.id} value={sub.id}>{sub.name}</option>
+              )) || []}
             </select>
 
             {/* DESCRIPTION */}
@@ -151,6 +258,7 @@ export default function EditProduct() {
         {/* BUTTONS */}
         <div className="flex justify-end gap-4 mt-8">
           <button
+            type="button"
             className="px-6 py-2 rounded-lg border border-brandGrey bg-blue hover:bg-red text-white transition"
             onClick={() => navigate("/admin/productlist")}
           >
@@ -158,12 +266,15 @@ export default function EditProduct() {
           </button>
 
           <button
-            className="px-6 py-2 rounded-lg bg-blue text-white hover:bg-red transition"
-            onClick={() => navigate("/admin/productlist")}
+            type="submit"
+            disabled={updating}
+            className="px-6 py-2 rounded-lg bg-blue text-white hover:bg-red transition disabled:opacity-50"
           >
-            Update Product
+            {updating ? "Updating..." : "Update Product"}
           </button>
         </div>
+
+        </form>
       </div>
     </div>
   );

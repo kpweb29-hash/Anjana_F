@@ -5,6 +5,54 @@ import BASE_URL from "../../BASEURL";
 export default function AddProduct() {
   const navigate = useNavigate();
 
+  // State for categories and subcategories
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Fetch subcategories from API
+    fetch(`${BASE_URL}/subcategory`)
+      .then(res => res.json())
+      .then(data => {
+        // Process the data to group subcategories by category
+        const categoryMap = {};
+        data.forEach(sub => {
+          const catId = sub.categoryId._id;
+          const catName = sub.categoryId.categoryName;
+          if (!categoryMap[catId]) {
+            categoryMap[catId] = {
+              id: catId,
+              name: catName,
+              subcategories: []
+            };
+          }
+          categoryMap[catId].subcategories.push({
+            id: sub._id,
+            name: sub.subCategoryName
+          });
+        });
+        const categoryList = Object.values(categoryMap);
+        setCategories(categoryList);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Error fetching subcategories:', err);
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    // Set initial category and subcategory once categories are loaded
+    if (categories.length > 0 && !product.category) {
+      const firstCategory = categories[0];
+      setProduct(prev => ({
+        ...prev,
+        category: firstCategory.id,
+        subcategory: firstCategory.subcategories[0]?.id || "",
+      }));
+    }
+  }, [categories]);
+
   // FORM STATE
   const [product, setProduct] = useState({
     name: "",
@@ -14,51 +62,8 @@ export default function AddProduct() {
     image: "",
   });
 
-  const [categories, setCategories] = useState([]);
-  const [subcategories, setSubcategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-
   const [previewImage, setPreviewImage] = useState(null);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch(`${BASE_URL}/category`);
-        if (response.ok) {
-          const data = await response.json();
-          setCategories(data);
-          if (data.length > 0) {
-            setProduct(prev => ({ ...prev, category: data[0].categoryName.name }));
-            fetchSubcategories(data[0].categoryName.name);
-          }
-        } else {
-          console.error('Failed to fetch categories');
-        }
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCategories();
-  }, []);
-
-  const fetchSubcategories = async (category) => {
-    try {
-      const response = await fetch(`${BASE_URL}/subcategory?category=${category}`);
-      if (response.ok) {
-        const data = await response.json();
-        setSubcategories(data);
-        if (data.length > 0) {
-          setProduct(prev => ({ ...prev, subcategory: data[0].subCategoryName.name }));
-        }
-      } else {
-        console.error('Failed to fetch subcategories');
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
   // Handle image preview
   const handleImagePreview = (e) => {
@@ -69,15 +74,65 @@ export default function AddProduct() {
     }
   };
 
+  // Handle form submit
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoadingSubmit(true);
+
+    const formData = new FormData();
+    formData.append("productName", product.name);
+    formData.append("categoryId", product.category);
+    formData.append("subCategoryId", product.subcategory);
+    formData.append("description", product.description);
+    if (product.image) {
+      formData.append("image", product.image);
+    }
+
+    console.log("Submitting product:", {
+      productName: product.name,
+      categoryId: product.category,
+      subCategoryId: product.subcategory,
+      description: product.description,
+      hasImage: !!product.image
+    });
+
+    try {
+      const token = localStorage.getItem("admin-token");
+      console.log("Token:", token ? "Present" : "Missing");
+      const response = await fetch(`${BASE_URL}/product`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      console.log("Response status:", response.status);
+      if (response.ok) {
+        alert("Product added successfully!");
+        navigate("/admin/productlist");
+      } else {
+        const errorText = await response.text();
+        console.error("Error response:", errorText);
+        alert(`Failed to add product: ${response.status} ${response.statusText}. ${errorText}`);
+      }
+    } catch (error) {
+      console.error("Error adding product:", error);
+      alert("An error occurred while adding the product.");
+    } finally {
+      setLoadingSubmit(false);
+    }
+  };
+
   // Category change updates subcategory
   const handleCategoryChange = (e) => {
-    const selected = e.target.value;
+    const selectedCategoryId = e.target.value;
+    const selectedCategory = categories.find(cat => cat.id === selectedCategoryId);
     setProduct({
       ...product,
-      category: selected,
-      subcategory: "",
+      category: selectedCategoryId,
+      subcategory: selectedCategory?.subcategories[0]?.id || "",
     });
-    fetchSubcategories(selected);
   };
 
   return (
@@ -96,7 +151,7 @@ export default function AddProduct() {
       {/* FORM CARD */}
       <div className="bg-white p-6 shadow-md rounded-xl border border-red/80">
 
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={handleSubmit}>
 
           {/* PRODUCT NAME */}
           <div className="flex flex-col">
@@ -115,31 +170,39 @@ export default function AddProduct() {
           {/* CATEGORY */}
           <div className="flex flex-col">
             <label className="font-medium text-blue mb-1">Category</label>
-            <select
-              value={product.category}
-              onChange={handleCategoryChange}
-              className="border border-blue rounded-lg px-4 py-2"
-            >
-              {categories.map((cat) => (
-                <option key={cat.categoryName.name} value={cat.categoryName.name}>{cat.categoryName.name}</option>
-              ))}
-            </select>
+            {loading ? (
+              <div className="border border-blue rounded-lg px-4 py-2 text-gray-500">Loading...</div>
+            ) : (
+              <select
+                value={product.category}
+                onChange={handleCategoryChange}
+                className="border border-blue rounded-lg px-4 py-2"
+              >
+                {categories.map((cat) => (
+                  <option key={cat.id} value={cat.id}>{cat.name}</option>
+                ))}
+              </select>
+            )}
           </div>
 
           {/* SUBCATEGORY */}
           <div className="flex flex-col">
             <label className="font-medium text-blue mb-1">Subcategory</label>
-            <select
-              value={product.subcategory}
-              onChange={(e) =>
-                setProduct({ ...product, subcategory: e.target.value })
-              }
-              className="border border-blue rounded-lg px-4 py-2"
-            >
-              {subcategories.map((sub) => (
-                <option key={sub.subCategoryName.name} value={sub.subCategoryName.name}>{sub.subCategoryName.name}</option>
-              ))}
-            </select>
+            {loading ? (
+              <div className="border border-blue rounded-lg px-4 py-2 text-gray-500">Loading...</div>
+            ) : (
+              <select
+                value={product.subcategory}
+                onChange={(e) =>
+                  setProduct({ ...product, subcategory: e.target.value })
+                }
+                className="border border-blue rounded-lg px-4 py-2"
+              >
+                {categories.find(cat => cat.id === product.category)?.subcategories.map((sub) => (
+                  <option key={sub.id} value={sub.id}>{sub.name}</option>
+                )) || []}
+              </select>
+            )}
           </div>
 
           {/* DESCRIPTION */}
@@ -176,17 +239,18 @@ export default function AddProduct() {
             )}
           </div>
 
-        </form>
+          {/* SUBMIT BUTTON */}
+          <div className="md:col-span-2 mt-6 flex justify-end">
+            <button
+              type="submit"
+              disabled={loadingSubmit}
+              className="bg-blue hover:bg-red text-white px-6 py-3 rounded-lg font-medium transition disabled:opacity-50"
+            >
+              {loadingSubmit ? "Adding..." : "Add Product"}
+            </button>
+          </div>
 
-        {/* SUBMIT BUTTON */}
-        <div className="mt-6 flex justify-end">
-          <button
-            className="bg-blue hover:bg-red text-white px-6 py-3 rounded-lg font-medium transition"
-            onClick={() => navigate("/admin/productlist")}
-          >
-            Add Product
-          </button>
-        </div>
+        </form>
 
       </div>
     </div>

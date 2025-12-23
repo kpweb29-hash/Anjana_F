@@ -1,14 +1,44 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import BASE_URL from "../BASEURL";
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
+  const [totals, setTotals] = useState({
+    totalProducts: 0,
+    totalBlogs: 0,
+    totalAdmins: 0
+  });
 
   useEffect(() => {
     if (localStorage.getItem("admin-auth") !== "true") {
       navigate("/login");
     }
   }, [navigate]);
+
+  useEffect(() => {
+    const fetchTotals = async () => {
+      try {
+        const token = localStorage.getItem("admin-token");
+        const response = await fetch(`${BASE_URL}/admin/totals`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setTotals(data);
+        } else {
+          console.error("Failed to fetch totals");
+        }
+      } catch (error) {
+        console.error("Error fetching totals:", error);
+      }
+    };
+
+    fetchTotals();
+  }, []);
   return (<>
     {/* PAGE CONTENT */}
     <div className="p-6">
@@ -29,7 +59,7 @@ export default function AdminDashboard() {
             </div>
             <div>
               <p className="text-gray text-sm">Total Products</p>
-              <h2 className="text-xl font-bold font-vollkorn">7</h2>
+              <h2 className="text-xl font-bold font-vollkorn">{totals.totalProducts}</h2>
             </div>
           </div>
         </Link>
@@ -42,7 +72,7 @@ export default function AdminDashboard() {
             </div>
             <div>
               <p className="text-brandGrey text-sm">Blogs</p>
-              <h2 className="text-xl font-bold font-vollkorn">120</h2>
+              <h2 className="text-xl font-bold font-vollkorn">{totals.totalBlogs}</h2>
             </div>
           </div>
         </Link>
@@ -54,7 +84,7 @@ export default function AdminDashboard() {
           </div>
           <div>
             <p className="text-brandGrey text-sm">Admin Users</p>
-            <h2 className="text-xl font-bold font-vollkorn">3</h2>
+            <h2 className="text-xl font-bold font-vollkorn">{totals.totalAdmins}</h2>
           </div>
         </div>
 
