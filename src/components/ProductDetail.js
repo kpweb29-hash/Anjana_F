@@ -1,12 +1,26 @@
 import { Link, useParams } from "react-router-dom";
-import { productsData } from "../data/productsData";
+import { useState, useEffect } from "react";
+import BASE_URL from "../BASEURL";
 import BreadcrumbProduct from "./BreadcrumbProduct";
 
 export default function ProductDetail() {
   const { category, subcat, productId } = useParams();
-  const product = productsData[category].subcategories[subcat].products.find(
-    (p) => p.id === productId
-  );
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/product/${productId}`)
+      .then(res => res.json())
+      .then(data => setProduct(data))
+      .catch(err => console.error('Error fetching product:', err));
+  }, [productId]);
+
+  if (!product || !product.productName) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue"></div>
+      </div>
+    );
+  }
 
   return (<>
   
@@ -14,7 +28,7 @@ export default function ProductDetail() {
 
     <div className="max-w-5xl mx-auto py-10 px-6">
       <h2 className="text-3xl font-bold mb-5 font-montserrat text-blue" data-aos="fade-up">
-        {product.name}</h2>
+        {product.productName}</h2>
 
       <img src={product.image} className="w-full h-80 object-cover rounded-lg" data-aos="zoom-in"  />
 

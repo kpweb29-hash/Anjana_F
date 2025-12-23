@@ -1,8 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import BASE_URL from "../BASEURL";
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        // Fetch categories from subcategories API
+        fetch(`${BASE_URL}/subcategory`)
+            .then(res => res.json())
+            .then(data => {
+                // Get unique categories
+                const uniqueCategories = [...new Set(data.map(sub => sub.categoryId.categoryName))];
+                setCategories(uniqueCategories);
+            })
+            .catch(err => console.error('Error fetching categories:', err));
+    }, []);
 
     return (
         <>
@@ -108,39 +122,11 @@ const Navbar = () => {
 
                                     {/* Dropdown */}
                                     <div className="absolute left-0 hidden group-hover:block bg-white shadow-lg p-4 rounded-lg w-56">
-
-                                        <Link to="/products/ferrous" className="block py-1 hover:text-red">
-                                            • Ferrous Metal
-                                        </Link>
-
-                                        <Link to="/products/nonFerrous" className="block py-1 hover:text-red">
-                                            • Non-Ferrous Metal
-                                        </Link>
-
-                                        <Link to="/products/industrialFlanges" className="block py-1 hover:text-red">
-                                            • Industrial Flanges
-                                        </Link>
-
-                                        <Link to="/products/industrialValves" className="block py-1 hover:text-red">
-                                            • Industrial Valves
-                                        </Link>
-
-                                        <Link to="/products/industrialFittings" className="block py-1 hover:text-red">
-                                            • Industrial Fittings
-                                        </Link>
-
-                                        <Link to="/products/dairyFittings" className="block py-1 hover:text-red">
-                                            • Dairy Fittings
-                                        </Link>
-
-                                        <Link to="/products/fasteners" className="block py-1 hover:text-red">
-                                            • Fasteners
-                                        </Link>
-
-                                        <Link to="/products/perforatedSheet" className="block py-1 hover:text-red">
-                                            • Perforated Sheet
-                                        </Link>
-
+                                        {categories.map((cat) => (
+                                            <Link key={cat} to={`/products/${cat.toLowerCase().replace(/\s+/g, '-')}`} className="block py-1 hover:text-red">
+                                                • {cat}
+                                            </Link>
+                                        ))}
                                     </div>
                                 </div>
 
@@ -234,39 +220,11 @@ const Navbar = () => {
 
                         {/* Dropdown */}
                         <div className="absolute z-20 left-0 hidden group-hover:block bg-white shadow-lg p-4 rounded-lg w-full">
-
-                            <Link to="/about#company-profile" onClick={() => setOpen(false)} className="block hover:text-red py-1">
-                                <span className="text-sm mr-2">*</span> Ferrous Metal
-                            </Link>
-
-                            <Link to="/about#company-profile" onClick={() => setOpen(false)} className="block hover:text-red py-1">
-                                <span className="text-sm mr-2">*</span> Non-Ferrous Metal
-                            </Link>
-
-                            <Link to="/about#goals-values" onClick={() => setOpen(false)} className="block hover:text-red py-1">
-                                <span className="text-sm mr-2">*</span> Industrial Flanges
-                            </Link>
-
-                            <Link to="/about#management" onClick={() => setOpen(false)} className="block hover:text-red py-1">
-                                <span className="text-sm mr-2">*</span> Industrial Valves
-                            </Link>
-
-                            <Link to="/about#quality-infra" onClick={() => setOpen(false)} className="block hover:text-red py-1">
-                                <span className="text-sm mr-2">*</span> Industrial Fittings
-                            </Link>
-
-                            <Link to="/about#quality-infra" onClick={() => setOpen(false)} className="block hover:text-red py-1">
-                                <span className="text-sm mr-2">*</span> Dairy Fittings
-                            </Link>
-
-                            <Link to="/about#quality-infra" onClick={() => setOpen(false)} className="block hover:text-red py-1">
-                                <span className="text-sm mr-2">*</span> Fasteners
-                            </Link>
-
-                            <Link to="/about#quality-infra" onClick={() => setOpen(false)} className="block hover:text-red py-1">
-                                <span className="text-sm mr-2">*</span> Perforated Sheet
-                            </Link>
-
+                            {categories.map((cat) => (
+                                <Link key={cat} to={`/products/${cat.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => setOpen(false)} className="block hover:text-red py-1">
+                                    <span className="text-sm mr-2">*</span> {cat}
+                                </Link>
+                            ))}
                         </div>
                     </div>
 

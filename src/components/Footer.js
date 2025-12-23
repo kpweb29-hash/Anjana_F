@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import BASE_URL from "../BASEURL";
 
 const Footer = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetch(`${BASE_URL}/subcategory`)
+      .then(res => res.json())
+      .then(data => {
+        const uniqueCategories = [...new Set(data.map(sub => sub.categoryId?.categoryName).filter(Boolean))];
+        setCategories(uniqueCategories);
+      })
+      .catch(err => console.error('Error fetching categories:', err));
+  }, []);
   return (
     <footer
       className="relative bg-blue text-white pt-0"
@@ -71,14 +83,11 @@ const Footer = () => {
             </h4>
 
             <ul className="space-y-2 text-gray-300 text-md flex flex-col gap-0 ">
-             <Link to="/" className="hover:text-red"> <li > <span className="text-sm mr-2">*</span>Ferrous Metal</li></Link>
-              <Link to="/" className="hover:text-red"><li><span className="text-sm mr-2">*</span>Non-Ferrous Metal</li></Link>
-             <Link to="/" className="hover:text-red"> <li><span className="text-sm mr-2">*</span>Industrial Flanges</li></Link>
-             <Link to="/" className="hover:text-red"> <li><span className="text-sm mr-2">*</span>Industrial Valves</li></Link>
-             <Link to="/" className="hover:text-red"> <li><span className="text-sm mr-2">*</span>Industrial Fittings</li></Link>
-              <Link to="/" className="hover:text-red"><li><span className="text-sm mr-2">*</span>Dairy Fittings</li></Link>
-             <Link to="/" className="hover:text-red"> <li><span className="text-sm mr-2">*</span>Fasteners</li></Link>
-             <Link to="/" className="hover:text-red"> <li><span className="text-sm mr-2">*</span>Perforated Sheet</li></Link>
+              {categories.map((cat) => (
+                <Link key={cat} to={`/products/${cat.toLowerCase().replace(/\s+/g, '-')}`} className="hover:text-red">
+                  <li><span className="text-sm mr-2">*</span>{cat}</li>
+                </Link>
+              ))}
             </ul>
           </div>
 
